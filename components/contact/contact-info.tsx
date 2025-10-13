@@ -5,26 +5,26 @@ const contactMethods = [
   {
     icon: Phone,
     title: "Phone",
-    details: ["+234 901 478 6078", "+234 701 105 3895"],
-    description: "Available on WhatsApp",
+    details: ["+1 234 567 8900", "+1 234 567 8901"],
+    description: "Mon-Fri: 9AM - 6PM",
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["fetotravels@gmail.com"],
+    details: ["info@fetotravels.com", "support@fetotravels.com"],
     description: "We reply within 24 hours",
   },
   {
     icon: MapPin,
     title: "Office",
-    details: ["KM 8, Idiroko Road, Rosco Bus stop", "Rosco Complex, Ado-Odo Ota", "Ogun State, Nigeria"],
+    details: ["123 Travel Street", "City, State 12345"],
     description: "Visit us by appointment",
   },
   {
     icon: MessageCircle,
     title: "WhatsApp",
-    details: ["+234 901 478 6078", "+234 701 105 3895"],
-    description: "Quick responses available",
+    details: ["+1 234 567 8900"],
+    description: "Quick responses 24/7",
   },
 ]
 
@@ -44,7 +44,7 @@ export function ContactInfo() {
                 <div className="flex gap-4">
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                      {method.icon({ className: "w-6 h-6 text-accent" })}
+                      <method.icon className="w-6 h-6 text-accent" />
                     </div>
                   </div>
                   <div>

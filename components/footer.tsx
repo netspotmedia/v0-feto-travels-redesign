@@ -2,7 +2,6 @@ import Link from "next/link"
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import Image from "next/image"
 
 export function Footer() {
   return (
@@ -30,10 +29,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Image src="/feto-logo.png" alt="Feto Travels" width={40} height={40} className="w-10 h-10" />
-              <h4 className="text-xl font-bold text-accent">Feto Travels</h4>
-            </div>
+            <h4 className="text-xl font-bold text-accent mb-4">Feto Travels</h4>
             <p className="text-primary-foreground/80 mb-4">
               Your trusted partner for unforgettable travel experiences worldwide.
             </p>
@@ -95,19 +91,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-primary-foreground/80">
                 <MapPin size={20} className="flex-shrink-0 mt-1" />
-                <span>KM 8, Idiroko Road, Rosco Bus stop, Rosco Complex, Ado-Odo Ota, Ogun State, Nigeria</span>
+                <span>123 Travel Street, City, Country</span>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/80">
                 <Phone size={20} className="flex-shrink-0" />
-                <div className="flex flex-col">
-                  <span>+234 901 478 6078</span>
-                  <span>+234 701 105 3895</span>
-                  <span className="text-xs text-accent mt-1">(WhatsApp available)</span>
-                </div>
+                <span>+1 234 567 8900</span>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/80">
                 <Mail size={20} className="flex-shrink-0" />
-                <span>fetotravels@gmail.com</span>
+                <span>info@fetotravels.com</span>
               </li>
             </ul>
           </div>
