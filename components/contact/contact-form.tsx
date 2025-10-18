@@ -1,13 +1,27 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import emailjs from "@emailjs/browser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 
+const SERVICE_ID = "service_l26lg6f"
+const TEMPLATE_ID = "template_qo6fyko"
+const PUBLIC_KEY = "taK6_rQr-RNOcXofy"
+
+type FormState = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  subject: string
+  message: string
+}
+
 export function ContactForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormState>({
     firstName: "",
     lastName: "",
     email: "",
@@ -18,32 +32,56 @@ export function ContactForm() {
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // initialize emailjs client once
+  useEffect(() => {
+    emailjs.init(PUBLIC_KEY)
+  }, [])
+
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    // basic client-side validation
+    if (!formData.firstName.trim() || !formData.lastName.trim()) {
+      setStatus("error")
+      console.error("First and last name are required.")
+      return
+    }
+    if (!isValidEmail(formData.email)) {
+      setStatus("error")
+      console.error("Invalid email address.")
+      return
+    }
+    if (!formData.subject.trim() || !formData.message.trim()) {
+      setStatus("error")
+      console.error("Subject and message are required.")
+      return
+    }
+
     setStatus("loading")
 
-    try {
-      const response = await fetch("https://formspree.io/f/xpwybeoj", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-          _replyto: formData.email,
-          _subject: "New Contact Form Submission - Feto Travels",
-          source: typeof window !== "undefined" ? window.location.href : "",
-        }),
-      })
+    const templateParams = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+      // optional meta fields
+      _replyto: formData.email,
+      _subject: `Contact form: ${formData.subject}`,
+      source: typeof window !== "undefined" ? window.location.href : "",
+    }
 
-      if (response.ok) {
+    try {
+      // send JSON payload via emailjs
+      const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+      // emailjs.send resolves with an object: { status: 200, text: 'OK' } on success
+      if (result && (result.status === 200 || (result as any).text)) {
         setStatus("success")
+        // reset form state
         setFormData({
           firstName: "",
           lastName: "",
@@ -54,10 +92,14 @@ export function ContactForm() {
         })
       } else {
         setStatus("error")
+        console.error("Unexpected EmailJS response:", result)
       }
-    } catch (error) {
-      console.error("Form submission error:", error)
+    } catch (err) {
+      console.error("EmailJS error:", err)
       setStatus("error")
+    } finally {
+      // keep status for user feedback; you might reset to 'idle' after a timeout if desired
+      // e.g. setTimeout(() => setStatus("idle"), 5000)
     }
   }
 
@@ -69,7 +111,7 @@ export function ContactForm() {
           Fill out the form below and we'll get back to you within 24 hours.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="firstName">First Name</Label>
@@ -83,6 +125,7 @@ export function ContactForm() {
                 required
               />
             </div>
+
             <div>
               <Label htmlFor="lastName">Last Name</Label>
               <Input
@@ -152,21 +195,20 @@ export function ContactForm() {
             type="submit"
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
             disabled={status === "loading"}
+            aria-busy={status === "loading"}
           >
             {status === "loading" ? "Sending..." : "Send Message"}
           </Button>
         </form>
 
-        {status === "success" && (
-          <p className="text-green-600 mt-4 text-center">
-            ✅ Thank you! Your message has been sent successfully.
-          </p>
-        )}
-        {status === "error" && (
-          <p className="text-red-600 mt-4 text-center">
-            ❌ Oops! Something went wrong. Please try again later.
-          </p>
-        )}
+        <div className="mt-4 text-center" aria-live="assertive">
+          {status === "success" && (
+            <p className="text-green-600">✅ Thank you! Your message has been sent successfully.</p>
+          )}
+          {status === "error" && (
+            <p className="text-red-600">❌ Oops! Something went wrong. Please check your input or try again later.</p>
+          )}
+        </div>
       </div>
     </section>
   )
