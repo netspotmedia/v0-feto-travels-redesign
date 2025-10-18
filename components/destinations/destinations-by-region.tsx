@@ -5,31 +5,31 @@ const regions = [
     name: "Europe",
     description: "Historic cities, stunning architecture, and diverse cultures",
     destinations: ["Paris", "Rome", "Barcelona", "Amsterdam", "Prague"],
-    image: "/european-historic-city-architecture.jpg",
+    image: "/rome.jpg",
   },
   {
     name: "Asia",
     description: "Ancient traditions, modern marvels, and exotic landscapes",
     destinations: ["Tokyo", "Bangkok", "Singapore", "Bali", "Dubai"],
-    image: "/asian-temple-and-modern-city-skyline.jpg",
+    image: "/asia.jpg",
   },
   {
     name: "Africa",
     description: "Wildlife safaris, pristine beaches, and rich heritage",
     destinations: ["Cape Town", "Marrakech", "Zanzibar", "Cairo", "Nairobi"],
-    image: "/african-safari-landscape-with-wildlife.jpg",
+    image: "/africa.jpg",
   },
   {
     name: "Americas",
     description: "Natural wonders, vibrant cities, and diverse experiences",
     destinations: ["New York", "Rio de Janeiro", "Cancun", "Vancouver", "Buenos Aires"],
-    image: "/american-city-skyline-and-nature.jpg",
+    image: "/americ.jpg",
   },
   {
     name: "Oceania",
     description: "Pristine beaches, unique wildlife, and adventure",
     destinations: ["Sydney", "Auckland", "Fiji", "Bora Bora", "Melbourne"],
-    image: "/oceania-beach-and-tropical-paradise.jpg",
+    image: "/oceanic.jpg",
   },
 ]
 
