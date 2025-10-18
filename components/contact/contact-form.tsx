@@ -15,24 +15,31 @@ export function ContactForm() {
     subject: "",
     message: "",
   })
+
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus("loading")
 
-    const form = new FormData()
-    for (const key in formData) {
-      form.append(key, formData[key as keyof typeof formData])
-    }
-    form.append("_replyto", formData.email)
-    form.append("_subject", "New Contact Form Submission - Feto Travels")
-
     try {
       const response = await fetch("https://formspree.io/f/xpwybeoj", {
         method: "POST",
-        body: form,
-        headers: { Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+          _subject: "New Contact Form Submission - Feto Travels",
+          source: typeof window !== "undefined" ? window.location.href : "",
+        }),
       })
 
       if (response.ok) {
@@ -49,7 +56,7 @@ export function ContactForm() {
         setStatus("error")
       }
     } catch (error) {
-      console.error(error)
+      console.error("Form submission error:", error)
       setStatus("error")
     }
   }
