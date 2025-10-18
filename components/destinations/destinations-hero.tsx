@@ -3,7 +3,7 @@ export function DestinationsHero() {
     <section className="relative h-[60vh] flex items-center justify-center overflow-hidden mt-20">
       <div className="absolute inset-0 z-0">
         <img
-          src="/world-map-with-travel-destinations-marked.jpg"
+          src="/goa.jpg"
           alt="Destinations"
           className="w-full h-full object-cover"
         />

@@ -9,7 +9,7 @@ const services = [
     description:
       "Access to competitive rates on domestic and international flights with all major airlines. We handle everything from seat selection to special meal requests.",
     features: ["Best price guarantee", "Flexible booking options", "24/7 flight support", "Group booking discounts"],
-    image: "/commercial-airplane-taking-off-at-airport.jpg",
+    image: "/flight.png",
   },
   {
     icon: Hotel,
@@ -17,7 +17,7 @@ const services = [
     description:
       "Handpicked accommodations ranging from budget-friendly options to luxury resorts. We ensure quality, comfort, and value at every price point.",
     features: ["Verified reviews", "Exclusive partner rates", "Room upgrades available", "Flexible cancellation"],
-    image: "/luxury-hotel-resort-with-pool-and-ocean-view.jpg",
+    image: "/hotels.jpg",
   },
   {
     icon: FileText,
@@ -25,7 +25,7 @@ const services = [
     description:
       "Expert guidance through complex visa application processes. We handle documentation, appointments, and follow-ups to ensure smooth approval.",
     features: ["Document preparation", "Application tracking", "Embassy liaison", "Fast-track options"],
-    image: "/passport-with-visa-stamps-and-travel-documents.jpg",
+    image: "/visa.jpg",
   },
   {
     icon: Package,
@@ -33,7 +33,7 @@ const services = [
     description:
       "Curated experiences combining flights, hotels, tours, and activities. Customizable packages designed around your interests and budget.",
     features: ["All-inclusive options", "Custom itineraries", "Local experiences", "Group discounts"],
-    image: "/tourists-exploring-ancient-ruins-with-guide.jpg",
+    image: "/vacation.jpg",
   },
   {
     icon: Shield,
@@ -41,7 +41,7 @@ const services = [
     description:
       "Comprehensive coverage protecting you against unexpected events. From medical emergencies to trip cancellations, we've got you covered.",
     features: ["Medical coverage", "Trip cancellation", "Lost luggage protection", "24/7 emergency assistance"],
-    image: "/travel-insurance-concept-with-protection-symbol.jpg",
+    image: "/insurance.jpg",
   },
   {
     icon: MapPin,
@@ -49,7 +49,7 @@ const services = [
     description:
       "Professional local guides providing authentic insights and unforgettable experiences. From city tours to adventure excursions.",
     features: ["Expert local guides", "Private & group tours", "Skip-the-line access", "Customized experiences"],
-    image: "/tour-guide-with-group-at-historic-landmark.jpg",
+    image: "/tourist.jpg.png",
   },
   {
     icon: Calendar,
@@ -57,7 +57,7 @@ const services = [
     description:
       "Specialized services for business events, conferences, and corporate travel. Efficient planning and seamless execution for groups of any size.",
     features: ["Group coordination", "Venue booking", "Transportation logistics", "On-site support"],
-    image: "/business-conference-event-venue.jpg",
+    image: "/events.png",
   },
   {
     icon: CreditCard,
@@ -65,7 +65,7 @@ const services = [
     description:
       "Flexible payment options making dream vacations more accessible. Spread costs over time with our convenient installment plans.",
     features: ["Interest-free options", "Flexible terms", "Secure payments", "No hidden fees"],
-    image: "/credit-card-payment-for-travel-booking.jpg",
+    image: "/payment.png",
   },
 ]
 

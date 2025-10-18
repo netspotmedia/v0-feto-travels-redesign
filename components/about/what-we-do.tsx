@@ -42,7 +42,7 @@ export function WhatWeDo() {
           <div className="relative mb-16">
             <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="/colorful-hot-air-balloons-over-desert-landscape.jpg"
+                src="https://media.licdn.com/dms/image/v2/D5612AQGIdXHFdGvJLA/article-cover_image-shrink_600_2000/B56ZWjouWMHQAQ-/0/1742207118004?e=2147483647&v=beta&t=f1Sts1MRoACY-Bb0xfGPMBdT0ylTWSqG0TTGnGGLul4"
                 alt="Travel experiences"
                 className="w-full h-full object-cover"
               />

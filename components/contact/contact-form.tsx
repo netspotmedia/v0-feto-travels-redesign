@@ -1,12 +1,11 @@
 "use client"
 
 import type React from "react"
-
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -18,9 +17,36 @@ export function ContactForm() {
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "loading">("idle")
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
+    setStatus("loading")
+
+    try {
+      const response = await fetch("https://formspree.io/f/xpwybeoj", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setStatus("success")
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        })
+      } else {
+        setStatus("error")
+      }
+    } catch (error) {
+      console.error("Form submission error:", error)
+      setStatus("error")
+    }
   }
 
   return (
@@ -105,10 +131,26 @@ export function ContactForm() {
               />
             </div>
 
-            <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-              Send Message
+            <Button
+              type="submit"
+              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+              disabled={status === "loading"}
+            >
+              {status === "loading" ? "Sending..." : "Send Message"}
             </Button>
           </form>
+
+          {/* ✅ Success or error feedback */}
+          {status === "success" && (
+            <p className="text-green-600 mt-4 text-center">
+              ✅ Thank you! Your message has been sent successfully.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-red-600 mt-4 text-center">
+              ❌ Oops! Something went wrong. Please try again later.
+            </p>
+          )}
         </div>
       </div>
     </section>

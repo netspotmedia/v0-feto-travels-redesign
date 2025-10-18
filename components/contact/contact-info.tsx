@@ -5,26 +5,26 @@ const contactMethods = [
   {
     icon: Phone,
     title: "Phone",
-    details: ["+1 234 567 8900", "+1 234 567 8901"],
-    description: "Mon-Fri: 9AM - 6PM",
+    details: ["+234 901 478 6078", "+234 701 105 3895"],
+    description: "Available on WhatsApp",
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["info@fetotravels.com", "support@fetotravels.com"],
+    details: ["fetotravels@gmail.com"],
     description: "We reply within 24 hours",
   },
   {
     icon: MapPin,
     title: "Office",
-    details: ["123 Travel Street", "City, State 12345"],
+    details: ["KM 8, Idiroko Road, Rosco Bus stop", "Rosco Complex, Ado-Odo Ota", "Ogun State, Nigeria"],
     description: "Visit us by appointment",
   },
   {
     icon: MessageCircle,
     title: "WhatsApp",
-    details: ["+1 234 567 8900"],
-    description: "Quick responses 24/7",
+    details: ["+234 901 478 6078", "+234 701 105 3895"],
+    description: "Quick responses available",
   },
 ]
 
@@ -39,26 +39,29 @@ export function ContactInfo() {
           </p>
 
           <div className="space-y-6">
-            {contactMethods.map((method, index) => (
-              <Card key={index} className="p-6 border-0 shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                      <method.icon className="w-6 h-6 text-accent" />
+            {contactMethods.map((method, index) => {
+              const IconComponent = method.icon
+              return (
+                <Card key={index} className="p-6 border-0 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                        <IconComponent className="w-6 h-6 text-accent" />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2 text-foreground">{method.title}</h3>
+                      {method.details.map((detail, idx) => (
+                        <p key={idx} className="text-muted-foreground">
+                          {detail}
+                        </p>
+                      ))}
+                      <p className="text-sm text-muted-foreground/70 mt-1">{method.description}</p>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-foreground">{method.title}</h3>
-                    {method.details.map((detail, idx) => (
-                      <p key={idx} className="text-muted-foreground">
-                        {detail}
-                      </p>
-                    ))}
-                    <p className="text-sm text-muted-foreground/70 mt-1">{method.description}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              )
+            })}
           </div>
 
           <Card className="mt-8 p-6 bg-accent/5 border-accent/20">

@@ -3,7 +3,7 @@ export function ServicesHero() {
     <section className="relative h-[60vh] flex items-center justify-center overflow-hidden mt-20">
       <div className="absolute inset-0 z-0">
         <img
-          src="/airplane-flying-over-clouds-at-sunset.jpg"
+          src="/service.jpg"
           alt="Our Services"
           className="w-full h-full object-cover"
         />

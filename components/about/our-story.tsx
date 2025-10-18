@@ -14,14 +14,14 @@ export function OurStory() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
               <img
-                src="/mountain-lake-reflection-scenic-landscape.jpg"
+                src="/images/design-mode/7014902-airplane-flight-sunset.jpg"
                 alt="Our journey"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
               <img
-                src="/modern-city-skyline-with-skyscrapers.jpg"
+                src="/images/design-mode/70416483-Asia-Singapore-City-Skyline-Cityscape-Skyscrapers-Modern-Buildings-Hi_rise-Night-View-Night-Lights.jpg"
                 alt="Our vision"
                 className="w-full h-full object-cover"
               />

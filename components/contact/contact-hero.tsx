@@ -3,7 +3,7 @@ export function ContactHero() {
     <section className="relative h-[50vh] flex items-center justify-center overflow-hidden mt-20">
       <div className="absolute inset-0 z-0">
         <img
-          src="/customer-service-representative-helping-client.jpg"
+          src="/goa.jpg"
           alt="Contact Us"
           className="w-full h-full object-cover"
         />
