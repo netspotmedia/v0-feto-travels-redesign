@@ -19,7 +19,7 @@ export function Header() {
               src="/feto-logo.png"
               alt="Feto Travels Logo"
               width={180}
-              height={52} // maintains 1028x295 aspect ratio
+              height={52}
               className="h-12 w-auto object-contain"
               priority
             />
@@ -49,16 +49,13 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              Book Now
+            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Link href="/contact">Book Now</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-primary-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
+          <button className="md:hidden text-primary-foreground" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -66,26 +63,50 @@ export function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
-            <Link href="/" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Home
             </Link>
-            <Link href="/about" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/about"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               About Us
             </Link>
-            <Link href="/services" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/services"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Services
             </Link>
-            <Link href="/destinations" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/destinations"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Destinations
             </Link>
-            <Link href="/blog" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/blog"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Blog
             </Link>
-            <Link href="/contact" className="text-primary-foreground hover:text-accent transition-colors" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/contact"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Contact
             </Link>
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground w-full">
-              Book Now
+            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground w-full">
+              <Link href="/contact">Book Now</Link>
             </Button>
           </div>
         )}

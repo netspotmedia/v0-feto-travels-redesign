@@ -67,18 +67,309 @@ const blogPosts = {
     relatedPosts: [
       {
         id: "visa-guide-2026",
-        title: "Complete Visa Guide for International Travel",
-        image: "/passport-and-visa.jpg",
+        title: "Essential Visa Requirements for Popular Destinations",
+        image: "/visa-passport-travel-documents-desk.jpg",
       },
       {
-        id: "packing-essentials",
-        title: "Ultimate Packing List for Long-Term Travel",
-        image: "/travel-packing-suitcase.jpg",
+        id: "packing-tips",
+        title: "How to Pack Light for a Two-Week European Adventure",
+        image: "/travel-packing-luggage-essentials.jpg",
       },
       {
-        id: "budget-travel-tips",
-        title: "How to Travel the World on a Budget",
-        image: "/budget-travel-backpacker.jpg",
+        id: "honeymoon-destinations",
+        title: "Top 5 Romantic Honeymoon Destinations for 2025",
+        image: "/romantic-beach-sunset-couple-silhouette.jpg",
+      },
+    ],
+  },
+  "dubai-guide": {
+    id: "dubai-guide",
+    title: "Best Time to Visit Dubai: A Month-by-Month Guide",
+    excerpt: "Plan your Dubai trip perfectly with our detailed weather and events calendar for every month.",
+    author: "Michael Chen",
+    date: "December 8, 2024",
+    readTime: "5 min read",
+    category: "Destinations",
+    image: "/dubai-skyline-different-seasons.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Dubai is a year-round destination, but the best time to visit depends on your preferences and what you want to experience. Understanding the seasonal patterns will help you plan the perfect trip.",
+      },
+      {
+        type: "heading",
+        text: "Winter (November to March) - The Best Season",
+      },
+      {
+        type: "paragraph",
+        text: "Winter is the peak season in Dubai with pleasant temperatures ranging from 20-30°C. This is the ideal time for outdoor activities, beach visits, and exploring the city's attractions.",
+      },
+      {
+        type: "heading",
+        text: "Summer (June to August) - Hot and Humid",
+      },
+      {
+        type: "paragraph",
+        text: "Summer temperatures can exceed 45°C, making outdoor activities challenging. However, hotels offer significant discounts during this period, and indoor attractions like shopping malls are perfect for cooling off.",
+      },
+      {
+        type: "heading",
+        text: "Spring and Fall - Transition Seasons",
+      },
+      {
+        type: "paragraph",
+        text: "April-May and September-October offer moderate temperatures and fewer crowds. These are great times to visit if you want to avoid peak season prices while still enjoying pleasant weather.",
+      },
+    ],
+    tags: ["Dubai", "Travel Planning", "Weather Guide", "Best Time to Visit"],
+    relatedPosts: [
+      {
+        id: "top-10-destinations-2026",
+        title: "Top 10 Must-Visit Destinations in 2026",
+        image: "/exotic-travel-destination.jpg",
+      },
+      {
+        id: "packing-tips",
+        title: "How to Pack Light for a Two-Week European Adventure",
+        image: "/travel-packing-luggage-essentials.jpg",
+      },
+      {
+        id: "business-travel",
+        title: "Business Travel Hacks: Stay Productive on the Go",
+        image: "/business-traveler-airport-lounge-working.jpg",
+      },
+    ],
+  },
+  "packing-tips": {
+    id: "packing-tips",
+    title: "How to Pack Light for a Two-Week European Adventure",
+    excerpt: "Master the art of minimalist packing with our expert tips and essential item checklist.",
+    author: "Emma Wilson",
+    date: "December 5, 2024",
+    readTime: "7 min read",
+    category: "Travel Tips",
+    image: "/travel-packing-luggage-essentials.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Packing light is an art form that can transform your travel experience. With the right strategy, you can explore Europe for two weeks with just a carry-on bag.",
+      },
+      {
+        type: "heading",
+        text: "The 80/20 Rule",
+      },
+      {
+        type: "paragraph",
+        text: "Pack 80% neutral colors and 20% accent pieces. This allows you to mix and match outfits easily while keeping your luggage minimal.",
+      },
+      {
+        type: "heading",
+        text: "Essential Items Checklist",
+      },
+      {
+        type: "paragraph",
+        text: "Focus on versatile clothing that works in multiple settings. Include comfortable walking shoes, a light jacket, and layers that can adapt to different weather conditions.",
+      },
+      {
+        type: "heading",
+        text: "Packing Techniques",
+      },
+      {
+        type: "paragraph",
+        text: "Use packing cubes to organize your items and maximize space. Roll clothes instead of folding them to save space and reduce wrinkles.",
+      },
+    ],
+    tags: ["Packing", "Travel Tips", "Europe", "Budget Travel"],
+    relatedPosts: [
+      {
+        id: "top-10-destinations-2026",
+        title: "Top 10 Must-Visit Destinations in 2026",
+        image: "/exotic-travel-destination.jpg",
+      },
+      {
+        id: "dubai-guide",
+        title: "Best Time to Visit Dubai: A Month-by-Month Guide",
+        image: "/dubai-skyline-different-seasons.jpg",
+      },
+      {
+        id: "honeymoon-destinations",
+        title: "Top 5 Romantic Honeymoon Destinations for 2025",
+        image: "/romantic-beach-sunset-couple-silhouette.jpg",
+      },
+    ],
+  },
+  "honeymoon-destinations": {
+    id: "honeymoon-destinations",
+    title: "Top 5 Romantic Honeymoon Destinations for 2025",
+    excerpt: "Celebrate your love in these breathtaking locations perfect for newlyweds seeking romance and adventure.",
+    author: "Jessica Martinez",
+    date: "December 3, 2024",
+    readTime: "8 min read",
+    category: "Honeymoon",
+    image: "/romantic-beach-sunset-couple-silhouette.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Your honeymoon is one of the most special trips you'll ever take. These five destinations offer the perfect blend of romance, adventure, and unforgettable memories.",
+      },
+      {
+        type: "heading",
+        text: "1. Bora Bora, French Polynesia",
+      },
+      {
+        type: "paragraph",
+        text: "Crystal-clear waters, overwater bungalows, and pristine beaches make Bora Bora the ultimate romantic destination. The island's natural beauty and luxury resorts create an unforgettable honeymoon experience.",
+      },
+      {
+        type: "heading",
+        text: "2. Santorini, Greece",
+      },
+      {
+        type: "paragraph",
+        text: "Sunset views over the Aegean Sea, white-washed buildings, and romantic dinners make Santorini a classic honeymoon choice. The island's charm and Mediterranean culture create magical moments.",
+      },
+      {
+        type: "heading",
+        text: "3. Maldives",
+      },
+      {
+        type: "paragraph",
+        text: "The Maldives offers luxury resorts, pristine beaches, and world-class diving. It's the perfect destination for couples seeking privacy and natural beauty.",
+      },
+    ],
+    tags: ["Honeymoon", "Romance", "Destinations", "Travel Planning"],
+    relatedPosts: [
+      {
+        id: "top-10-destinations-2026",
+        title: "Top 10 Must-Visit Destinations in 2026",
+        image: "/exotic-travel-destination.jpg",
+      },
+      {
+        id: "packing-tips",
+        title: "How to Pack Light for a Two-Week European Adventure",
+        image: "/travel-packing-luggage-essentials.jpg",
+      },
+      {
+        id: "business-travel",
+        title: "Business Travel Hacks: Stay Productive on the Go",
+        image: "/business-traveler-airport-lounge-working.jpg",
+      },
+    ],
+  },
+  "business-travel": {
+    id: "business-travel",
+    title: "Business Travel Hacks: Stay Productive on the Go",
+    excerpt:
+      "Maximize efficiency during business trips with these proven strategies from frequent corporate travelers.",
+    author: "David Thompson",
+    date: "November 28, 2024",
+    readTime: "6 min read",
+    category: "Business Travel",
+    image: "/business-traveler-airport-lounge-working.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Business travel can be exhausting, but with the right strategies, you can stay productive and maintain work-life balance.",
+      },
+      {
+        type: "heading",
+        text: "Time Management Tips",
+      },
+      {
+        type: "paragraph",
+        text: "Schedule your most important tasks during your peak energy hours. Use travel time for emails and administrative work.",
+      },
+      {
+        type: "heading",
+        text: "Technology Essentials",
+      },
+      {
+        type: "paragraph",
+        text: "Invest in a good laptop, portable charger, and noise-canceling headphones. These tools will help you work efficiently from anywhere.",
+      },
+      {
+        type: "heading",
+        text: "Health and Wellness",
+      },
+      {
+        type: "paragraph",
+        text: "Maintain a regular exercise routine, stay hydrated, and get adequate sleep. Your health is crucial for maintaining productivity during business trips.",
+      },
+    ],
+    tags: ["Business Travel", "Productivity", "Travel Tips", "Work"],
+    relatedPosts: [
+      {
+        id: "packing-tips",
+        title: "How to Pack Light for a Two-Week European Adventure",
+        image: "/travel-packing-luggage-essentials.jpg",
+      },
+      {
+        id: "dubai-guide",
+        title: "Best Time to Visit Dubai: A Month-by-Month Guide",
+        image: "/dubai-skyline-different-seasons.jpg",
+      },
+      {
+        id: "travel-photography",
+        title: "Capturing Travel Memories: Photography Tips for Beginners",
+        image: "/photographer-taking-landscape-photo.jpg",
+      },
+    ],
+  },
+  "travel-photography": {
+    id: "travel-photography",
+    title: "Capturing Travel Memories: Photography Tips for Beginners",
+    excerpt: "Learn how to take stunning travel photos with your smartphone or camera using these simple techniques.",
+    author: "Lisa Anderson",
+    date: "November 25, 2024",
+    readTime: "9 min read",
+    category: "Photography",
+    image: "/photographer-taking-landscape-photo.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Travel photography doesn't require expensive equipment. With these simple techniques, you can capture stunning memories with any camera or smartphone.",
+      },
+      {
+        type: "heading",
+        text: "Composition Basics",
+      },
+      {
+        type: "paragraph",
+        text: "Use the rule of thirds to create balanced and interesting compositions. Avoid placing your subject in the center of the frame.",
+      },
+      {
+        type: "heading",
+        text: "Lighting Tips",
+      },
+      {
+        type: "paragraph",
+        text: "Golden hour (sunrise and sunset) provides the best natural lighting for travel photos. Avoid harsh midday sun when possible.",
+      },
+      {
+        type: "heading",
+        text: "Smartphone Photography",
+      },
+      {
+        type: "paragraph",
+        text: "Modern smartphones have excellent cameras. Learn to use your phone's built-in features like HDR and portrait mode to enhance your photos.",
+      },
+    ],
+    tags: ["Photography", "Travel Tips", "Smartphone", "Cameras"],
+    relatedPosts: [
+      {
+        id: "top-10-destinations-2026",
+        title: "Top 10 Must-Visit Destinations in 2026",
+        image: "/exotic-travel-destination.jpg",
+      },
+      {
+        id: "packing-tips",
+        title: "How to Pack Light for a Two-Week European Adventure",
+        image: "/travel-packing-luggage-essentials.jpg",
+      },
+      {
+        id: "business-travel",
+        title: "Business Travel Hacks: Stay Productive on the Go",
+        image: "/business-traveler-airport-lounge-working.jpg",
       },
     ],
   },
