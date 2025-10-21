@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { BlogHero } from "@/components/blog/blog-hero"
 import { FeaturedPost } from "@/components/blog/featured-post"
 import { BlogGrid } from "@/components/blog/blog-grid"
@@ -15,7 +14,6 @@ export default function BlogPage() {
         <BlogCategories />
         <BlogGrid />
       </main>
-      <Footer />
     </div>
   )
 }

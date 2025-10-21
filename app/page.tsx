@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { HeroSection } from "@/components/home/hero-section"
 import { WhyChooseUs } from "@/components/home/why-choose-us"
 import { FeaturedDestinations } from "@/components/home/featured-destinations"
@@ -21,7 +20,6 @@ export default function HomePage() {
         <Testimonials />
         <BookingProcess />
       </main>
-      <Footer />
     </div>
   )
 }

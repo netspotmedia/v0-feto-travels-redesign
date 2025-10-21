@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import { Calendar, MapPin, DollarSign, ArrowRight } from "lucide-react"
@@ -109,7 +108,6 @@ export default function ToursPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   )
 }

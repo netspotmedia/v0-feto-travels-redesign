@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { AboutHero } from "@/components/about/about-hero"
 import { OurStory } from "@/components/about/our-story"
 import { WhatWeDo } from "@/components/about/what-we-do"
@@ -19,7 +18,6 @@ export default function AboutPage() {
         <OurApproach />
         <MeetTheTeam />
       </main>
-      <Footer />
     </div>
   )
 }

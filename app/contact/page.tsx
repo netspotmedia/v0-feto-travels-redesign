@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { ContactHero } from "@/components/contact/contact-hero"
 import { ContactForm } from "@/components/contact/contact-form"
 import { ContactInfo } from "@/components/contact/contact-info"
@@ -17,7 +16,6 @@ export default function ContactPage() {
         </div>
         <ContactMap />
       </main>
-      <Footer />
     </div>
   )
 }

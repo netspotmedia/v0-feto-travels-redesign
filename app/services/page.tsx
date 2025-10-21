@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { ServicesHero } from "@/components/services/services-hero"
 import { ServicesList } from "@/components/services/services-list"
 import { WhyChooseOurServices } from "@/components/services/why-choose-our-services"
@@ -17,7 +16,6 @@ export default function ServicesPage() {
         <ServiceProcess />
         <ServicesCTA />
       </main>
-      <Footer />
     </div>
   )
 }
