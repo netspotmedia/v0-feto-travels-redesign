@@ -6,6 +6,8 @@ import { Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Suspense } from "react"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -28,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${playfair.variable} antialiased`}>
+        <Header />
         <Suspense fallback={null}>{children}</Suspense>
+        <Footer />
         <Analytics />
       </body>
     </html>

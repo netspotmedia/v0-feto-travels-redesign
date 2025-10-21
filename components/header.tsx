@@ -39,6 +39,9 @@ export function Header() {
             <Link href="/destinations" className="text-primary-foreground hover:text-accent transition-colors">
               Destinations
             </Link>
+            <Link href="/tours" className="text-primary-foreground hover:text-accent transition-colors">
+              Tours
+            </Link>
             <Link href="/blog" className="text-primary-foreground hover:text-accent transition-colors">
               Blog
             </Link>
@@ -90,6 +93,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Destinations
+            </Link>
+            <Link
+              href="/tours"
+              className="text-primary-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Tours
             </Link>
             <Link
               href="/blog"
