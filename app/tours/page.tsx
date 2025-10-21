@@ -9,11 +9,33 @@ const tours = [
     title: "Kenya Classic Safari Experience",
     year: "2026",
     image: "/kenya-safari-landscape-with-acacia-trees.jpg",
-    price: "$3,499",
+    price: "₦3,890,499",
     duration: "7 Days, 6 Nights",
     destinations: "4 Destinations",
     excerpt:
       "Experience the magic of Kenya's wildlife and landscapes with expert guides who know every corner of this magnificent country.",
+  },
+  {
+    id: "paris-france-escape",
+    title: "7 Days in Paris, France",
+    year: "2026",
+    image: "/paris-first-trip.jpg",
+    price: "₦2,450,000",
+    duration: "7 Days, 6 Nights",
+    destinations: "1 Destination",
+    excerpt:
+      "Discover the City of Light with its iconic landmarks, world-class museums, charming cafés, and romantic Seine River experiences.",
+  },
+  {
+    id: "casablanca-morocco-acn",
+    title: "9 Days in Casablanca, Morocco - Africa Cup of Nations 2026",
+    year: "2026",
+    image: "https://www.atalayar.com/asset/thumbnail,1280,720,center,center/media/atalayar/images/2025/06/04/2025060413344668577.jpg",
+    price: "₦3,250,000",
+    duration: "9 Days, 8 Nights",
+    destinations: "2 Destinations",
+    excerpt:
+      "Experience Morocco's vibrant culture, stunning architecture, and the excitement of the Africa Cup of Nations 2026 tournament in Casablanca.",
   },
 ]
 
