@@ -1,19 +1,56 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { useState } from "react"
+import { Menu, X, ExternalLink } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [formOpen, setFormOpen] = useState(false)
+  const [formUrl, setFormUrl] = useState("")
+
+  const services = [
+    {
+      title: "Flight Bookings",
+      
+      url: "https://form.jotform.com/253451109699566",
+    },
+    {
+      title: "Hotel Reservations",
+      desc: "Quick booking for hotels",
+      url: "https://form.jotform.com/253451366592563",
+    },
+    {
+      title: "Visa Assistance",
+      desc: "Quick booking for visa assistance",
+      url: "https://form.jotform.com/253451979779580",
+    },
+    {
+      title: "Tour Packages",
+      desc: "Quick booking for tour packages",
+      url: "https://form.jotform.com/253451890629566",
+    },
+    {
+      title: "Travel Insurance",
+      desc: "Quick booking for travel insurance",
+      url: "https://form.jotform.com/253451805436558",
+    },
+  ]
+
+  const openForm = (url) => {
+    setFormUrl(url)
+    setFormOpen(true)
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-primary-foreground/10">
       <nav className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo only */}
+          {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/feto-logo.png"
@@ -50,11 +87,13 @@ export function Header() {
             </Link>
           </div>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="/contact">Book Now</Link>
-            </Button>
+            <button
+              onClick={() => setServicesOpen(true)}
+              className="p-0 bg-transparent hover:opacity-80 transition-opacity"
+            >
+              <Image src="/book.png" alt="Book Now" width={140} height={70} className="w-32 h-auto" />
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -68,59 +107,125 @@ export function Header() {
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
             <Link
               href="/"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               About Us
             </Link>
             <Link
               href="/services"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Services
             </Link>
             <Link
               href="/destinations"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Destinations
             </Link>
             <Link
               href="/tours"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Tours
             </Link>
             <Link
               href="/blog"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Blog
             </Link>
             <Link
               href="/contact"
-              className="text-primary-foreground hover:text-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
+              className="text-primary-foreground hover:text-accent"
             >
               Contact
             </Link>
-            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground w-full">
-              <Link href="/contact">Book Now</Link>
-            </Button>
+
+            <button
+              onClick={() => {
+                setServicesOpen(true)
+                setMobileMenuOpen(false)
+              }}
+              className="p-0 bg-transparent hover:opacity-80 transition-opacity"
+            >
+              <Image src="/book.png" alt="Book Now" width={160} height={80} className="w-40 h-auto mx-auto" />
+            </button>
           </div>
         )}
       </nav>
+
+      {/* FULL SCREEN SERVICES MODAL */}
+      <Dialog open={servicesOpen} onOpenChange={setServicesOpen}>
+  <DialogContent className="w-full h-screen max-w-none rounded-none p-8 overflow-y-auto">
+    <DialogTitle className="text-2xl font-bold mb-6">
+      Choose a Booking Service
+    </DialogTitle>
+
+    <div className="flex flex-col gap-5 text-lg">
+      <button
+        onClick={() => openForm("https://form.jotform.com/253451109699566")}
+        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
+      >
+        ✈️ <span>Flight Bookings</span>
+      </button>
+
+      <button
+        onClick={() => openForm("https://form.jotform.com/253451366592563")}
+        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
+      >
+        🏨 <span>Hotel Reservations</span>
+      </button>
+
+      <button
+        onClick={() => openForm("https://form.jotform.com/253451979779580")}
+        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
+      >
+        🛂 <span>Visa Assistance</span>
+      </button>
+
+      <button
+        onClick={() => openForm("https://form.jotform.com/253451890629566")}
+        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
+      >
+        🎒 <span>Tour Packages</span>
+      </button>
+
+      <button
+        onClick={() => openForm("https://form.jotform.com/253451805436558")}
+        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
+      >
+        🛡️ <span>Travel Insurance</span>
+      </button>
+    </div>
+
+    <div className="flex justify-end mt-10">
+      <Button variant="outline" onClick={() => setServicesOpen(false)}>
+        Close
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
+
+      {/* FULL SCREEN JOTFORM POPUP */}
+      <Dialog open={formOpen} onOpenChange={setFormOpen}>
+        <DialogContent className="w-full h-screen max-w-none rounded-none p-4">
+          <iframe src={formUrl} className="w-full h-full rounded-lg" style={{ border: "none" }} />
+        </DialogContent>
+      </Dialog>
     </header>
   )
 }
