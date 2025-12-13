@@ -1,15 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import emailjs from "@emailjs/browser"
+import type React from "react"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-
-const SERVICE_ID = "service_l26lg6f"
-const TEMPLATE_ID = "template_qo6fyko"
-const PUBLIC_KEY = "taK6_rQr-RNOcXofy"
+import { SecurityQuestion } from "@/components/security-question"
 
 type FormState = {
   firstName: string
@@ -31,75 +29,66 @@ export function ContactForm() {
   })
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [isSecurityValid, setIsSecurityValid] = useState(false)
+  const [resetSecurity, setResetSecurity] = useState(false)
 
-  // initialize emailjs client once
-  useEffect(() => {
-    emailjs.init(PUBLIC_KEY)
-  }, [])
-
-  const isValidEmail = (email: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // basic client-side validation
     if (!formData.firstName.trim() || !formData.lastName.trim()) {
       setStatus("error")
-      console.error("First and last name are required.")
       return
     }
     if (!isValidEmail(formData.email)) {
       setStatus("error")
-      console.error("Invalid email address.")
       return
     }
     if (!formData.subject.trim() || !formData.message.trim()) {
       setStatus("error")
-      console.error("Subject and message are required.")
+      return
+    }
+
+    if (!isSecurityValid) {
+      setStatus("error")
       return
     }
 
     setStatus("loading")
 
-    const templateParams = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phone: formData.phone,
-      subject: formData.subject,
-      message: formData.message,
-      // optional meta fields
-      _replyto: formData.email,
-      _subject: `Contact form: ${formData.subject}`,
-      source: typeof window !== "undefined" ? window.location.href : "",
-    }
-
     try {
-      // send JSON payload via emailjs
-      const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
-      // emailjs.send resolves with an object: { status: 200, text: 'OK' } on success
-      if (result && (result.status === 200 || (result as any).text)) {
-        setStatus("success")
-        // reset form state
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        })
-      } else {
-        setStatus("error")
-        console.error("Unexpected EmailJS response:", result)
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to send message")
       }
+
+      setStatus("success")
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      })
+      setResetSecurity(!resetSecurity)
+      setIsSecurityValid(false)
+
+      setTimeout(() => setStatus("idle"), 5000)
     } catch (err) {
-      console.error("EmailJS error:", err)
+      console.error("Contact form error:", err)
       setStatus("error")
-    } finally {
-      // keep status for user feedback; you might reset to 'idle' after a timeout if desired
-      // e.g. setTimeout(() => setStatus("idle"), 5000)
+      setResetSecurity(!resetSecurity)
+      setIsSecurityValid(false)
+      setTimeout(() => setStatus("idle"), 5000)
     }
   }
 
@@ -107,9 +96,7 @@ export function ContactForm() {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 max-w-xl">
         <h2 className="text-3xl font-serif font-bold text-foreground mb-2">Send Us a Message</h2>
-        <p className="text-muted-foreground mb-8">
-          Fill out the form below and we'll get back to you within 24 hours.
-        </p>
+        <p className="text-muted-foreground mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
 
         <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -191,10 +178,12 @@ export function ContactForm() {
             />
           </div>
 
+          <SecurityQuestion onValidate={setIsSecurityValid} reset={resetSecurity} />
+
           <Button
             type="submit"
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-            disabled={status === "loading"}
+            disabled={status === "loading" || !isSecurityValid}
             aria-busy={status === "loading"}
           >
             {status === "loading" ? "Sending..." : "Send Message"}

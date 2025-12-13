@@ -3,47 +3,27 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import { Menu, X, ExternalLink } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { ServiceRequestForm } from "@/components/service-request-form"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const [formOpen, setFormOpen] = useState(false)
-  const [formUrl, setFormUrl] = useState("")
+  const [selectedService, setSelectedService] = useState<string>("")
 
   const services = [
-    {
-      title: "Flight Bookings",
-      
-      url: "https://form.jotform.com/253451109699566",
-    },
-    {
-      title: "Hotel Reservations",
-      desc: "Quick booking for hotels",
-      url: "https://form.jotform.com/253451366592563",
-    },
-    {
-      title: "Visa Assistance",
-      desc: "Quick booking for visa assistance",
-      url: "https://form.jotform.com/253451979779580",
-    },
-    {
-      title: "Tour Packages",
-      desc: "Quick booking for tour packages",
-      url: "https://form.jotform.com/253451890629566",
-    },
-    {
-      title: "Travel Insurance",
-      desc: "Quick booking for travel insurance",
-      url: "https://form.jotform.com/253451805436558",
-    },
+    { id: "flight", title: "Flight Bookings", icon: "✈️" },
+    { id: "hotel", title: "Hotel Reservations", icon: "🏨" },
+    { id: "visa", title: "Visa Assistance", icon: "🛂" },
+    { id: "tour", title: "Tour Packages", icon: "🎒" },
+    { id: "insurance", title: "Travel Insurance", icon: "🛡️" },
   ]
 
-  const openForm = (url) => {
-    setFormUrl(url)
-    setFormOpen(true)
+  const openServiceForm = (serviceId: string) => {
+    setSelectedService(serviceId)
+    setServicesOpen(false)
   }
 
   return (
@@ -168,62 +148,35 @@ export function Header() {
         )}
       </nav>
 
-      {/* FULL SCREEN SERVICES MODAL */}
       <Dialog open={servicesOpen} onOpenChange={setServicesOpen}>
-  <DialogContent className="w-full h-screen max-w-none rounded-none p-8 overflow-y-auto">
-    <DialogTitle className="text-2xl font-bold mb-6">
-      Choose a Booking Service
-    </DialogTitle>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogTitle className="text-2xl font-bold mb-6">Choose a Service</DialogTitle>
 
-    <div className="flex flex-col gap-5 text-lg">
-      <button
-        onClick={() => openForm("https://form.jotform.com/253451109699566")}
-        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
-      >
-        ✈️ <span>Flight Bookings</span>
-      </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {services.map((service) => (
+              <button
+                key={service.id}
+                onClick={() => openServiceForm(service.id)}
+                className="flex items-center gap-3 p-4 border rounded-lg hover:bg-accent/10 hover:border-accent transition text-left"
+              >
+                <span className="text-3xl">{service.icon}</span>
+                <span className="font-medium">{service.title}</span>
+              </button>
+            ))}
+          </div>
 
-      <button
-        onClick={() => openForm("https://form.jotform.com/253451366592563")}
-        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
-      >
-        🏨 <span>Hotel Reservations</span>
-      </button>
+          <div className="flex justify-end mt-6">
+            <Button variant="outline" onClick={() => setServicesOpen(false)}>
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-      <button
-        onClick={() => openForm("https://form.jotform.com/253451979779580")}
-        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
-      >
-        🛂 <span>Visa Assistance</span>
-      </button>
-
-      <button
-        onClick={() => openForm("https://form.jotform.com/253451890629566")}
-        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
-      >
-        🎒 <span>Tour Packages</span>
-      </button>
-
-      <button
-        onClick={() => openForm("https://form.jotform.com/253451805436558")}
-        className="flex items-center gap-3 text-primary hover:text-accent transition text-left"
-      >
-        🛡️ <span>Travel Insurance</span>
-      </button>
-    </div>
-
-    <div className="flex justify-end mt-10">
-      <Button variant="outline" onClick={() => setServicesOpen(false)}>
-        Close
-      </Button>
-    </div>
-  </DialogContent>
-</Dialog>
-
-      {/* FULL SCREEN JOTFORM POPUP */}
-      <Dialog open={formOpen} onOpenChange={setFormOpen}>
-        <DialogContent className="w-full h-screen max-w-none rounded-none p-4">
-          <iframe src={formUrl} className="w-full h-full rounded-lg" style={{ border: "none" }} />
+      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService("")}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogTitle className="text-2xl font-bold mb-6">Service Request Form</DialogTitle>
+          <ServiceRequestForm initialService={selectedService} onClose={() => setSelectedService("")} />
         </DialogContent>
       </Dialog>
     </header>
