@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Shield } from "lucide-react"
 
 interface SecurityQuestionProps {
   onValidate: (isValid: boolean) => void
@@ -34,20 +35,35 @@ export function SecurityQuestion({ onValidate, reset }: SecurityQuestionProps) {
   }, [userAnswer, num1, num2, onValidate])
 
   return (
-    <div>
-      <Label htmlFor="security-answer">
-        Security Question: What is {num1} + {num2}? *
-      </Label>
-      <Input
-        id="security-answer"
-        type="text"
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-        placeholder="Enter the answer"
-        required
-        className="mt-1"
-      />
-      <p className="text-xs text-muted-foreground mt-1">Please solve this simple math problem to verify you're human</p>
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 mb-2">
+        <Shield className="w-5 h-5 text-blue-600" />
+        <Label htmlFor="security-answer" className="text-base font-semibold text-gray-900">
+          Security Verification
+        </Label>
+      </div>
+      <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+        <p className="text-sm font-medium text-gray-700 mb-3">
+          What is{" "}
+          <span className="text-blue-600 font-bold text-lg">
+            {num1} + {num2}
+          </span>
+          ? <span className="text-red-500">*</span>
+        </p>
+        <Input
+          id="security-answer"
+          type="text"
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+          placeholder="Enter your answer"
+          required
+          className="h-12 text-base border-2 border-blue-300 focus:border-blue-500 bg-white"
+        />
+      </div>
+      <p className="text-xs text-gray-600 flex items-center gap-1">
+        <Shield className="w-3 h-3" />
+        This helps us prevent spam and ensure you're a real person
+      </p>
     </div>
   )
 }

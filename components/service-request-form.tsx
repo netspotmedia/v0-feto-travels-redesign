@@ -127,94 +127,150 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
 
   if (success) {
     return (
-      <div className="text-center py-12">
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold mb-2">Request Submitted!</h3>
-        <p className="text-muted-foreground">We'll contact you shortly at the email/phone provided.</p>
+      <div className="text-center py-16 px-6">
+        <div className="bg-green-50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-12 h-12 text-green-600" />
+        </div>
+        <h3 className="text-3xl font-bold text-gray-900 mb-3">Request Submitted Successfully!</h3>
+        <p className="text-lg text-gray-600 max-w-md mx-auto">
+          Thank you for choosing Feto Travels. We'll review your request and contact you shortly via your preferred
+          contact method.
+        </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <Label htmlFor="service" className="text-lg font-semibold mb-3 block">
-          Select Service *
+    <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl mx-auto">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
+        <Label htmlFor="service" className="text-xl font-bold text-gray-900 mb-4 block flex items-center gap-2">
+          <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">
+            1
+          </span>
+          Select Your Service
         </Label>
         <Select name="service" value={selectedService} onValueChange={setSelectedService} required>
-          <SelectTrigger className="h-12">
-            <SelectValue placeholder="Choose a service" />
+          <SelectTrigger className="h-14 text-base bg-white border-2 border-gray-200 hover:border-blue-400 transition-colors">
+            <SelectValue placeholder="Choose the service you need" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="flight">
-              <div className="flex items-center gap-2">
-                <Plane className="w-4 h-4" />
-                <span>Flight Bookings</span>
+            <SelectItem value="flight" className="py-3">
+              <div className="flex items-center gap-3">
+                <Plane className="w-5 h-5 text-blue-600" />
+                <span className="font-medium">Flight Bookings</span>
               </div>
             </SelectItem>
-            <SelectItem value="hotel">
-              <div className="flex items-center gap-2">
-                <Hotel className="w-4 h-4" />
-                <span>Hotel Reservations</span>
+            <SelectItem value="hotel" className="py-3">
+              <div className="flex items-center gap-3">
+                <Hotel className="w-5 h-5 text-purple-600" />
+                <span className="font-medium">Hotel Reservations</span>
               </div>
             </SelectItem>
-            <SelectItem value="visa">
-              <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                <span>Visa Assistance</span>
+            <SelectItem value="visa" className="py-3">
+              <div className="flex items-center gap-3">
+                <FileText className="w-5 h-5 text-green-600" />
+                <span className="font-medium">Visa Assistance</span>
               </div>
             </SelectItem>
-            <SelectItem value="tour">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>Tour Packages</span>
+            <SelectItem value="tour" className="py-3">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-orange-600" />
+                <span className="font-medium">Tour Packages</span>
               </div>
             </SelectItem>
-            <SelectItem value="insurance">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4" />
-                <span>Travel Insurance</span>
+            <SelectItem value="insurance" className="py-3">
+              <div className="flex items-center gap-3">
+                <Shield className="w-5 h-5 text-red-600" />
+                <span className="font-medium">Travel Insurance</span>
               </div>
             </SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      {/* Common Client Information Section */}
-      <div className="border-t pt-6">
-        <h3 className="text-lg font-semibold mb-4">Client Information</h3>
-        <div className="space-y-4">
+      <div className="bg-white border-2 border-gray-100 rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+        <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">
+            2
+          </span>
+          Your Information
+        </h3>
+        <div className="space-y-6">
           <div>
-            <Label htmlFor="name">Full Name *</Label>
-            <Input id="name" name="name" required placeholder="John Doe" />
+            <Label htmlFor="name" className="text-sm font-semibold text-gray-700 mb-2 block">
+              Full Name <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="name"
+              name="name"
+              required
+              placeholder="Enter your full name"
+              className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <Label htmlFor="email">Email Address *</Label>
-              <Input id="email" name="email" type="email" required placeholder="john@example.com" />
+              <Label htmlFor="email" className="text-sm font-semibold text-gray-700 mb-2 block">
+                Email Address <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="your.email@example.com"
+                className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+              />
             </div>
             <div>
-              <Label htmlFor="phone">Phone Number (WhatsApp preferred) *</Label>
-              <Input id="phone" name="phone" type="tel" required placeholder="+234 XXX XXX XXXX" />
+              <Label htmlFor="phone" className="text-sm font-semibold text-gray-700 mb-2 block">
+                Phone Number (WhatsApp) <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                placeholder="+234 XXX XXX XXXX"
+                className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+              />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <Label htmlFor="nationality">Nationality *</Label>
-              <Input id="nationality" name="nationality" required placeholder="e.g., Nigerian" />
+              <Label htmlFor="nationality" className="text-sm font-semibold text-gray-700 mb-2 block">
+                Nationality <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="nationality"
+                name="nationality"
+                required
+                placeholder="e.g., Nigerian"
+                className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+              />
             </div>
             <div>
-              <Label htmlFor="residence">Current Country of Residence *</Label>
-              <Input id="residence" name="residence" required placeholder="e.g., Nigeria" />
+              <Label htmlFor="residence" className="text-sm font-semibold text-gray-700 mb-2 block">
+                Current Residence <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="residence"
+                name="residence"
+                required
+                placeholder="e.g., Nigeria"
+                className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors"
+              />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="contactMethod">Preferred Contact Method</Label>
+            <Label htmlFor="contactMethod" className="text-sm font-semibold text-gray-700 mb-2 block">
+              Preferred Contact Method
+            </Label>
             <Select name="contactMethod" defaultValue="whatsapp">
-              <SelectTrigger>
+              <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500 transition-colors">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -228,16 +284,23 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
       </div>
 
       {selectedService && (
-        <div className="border-t pt-6">
-          <h3 className="text-lg font-semibold mb-4">Service Details</h3>
+        <div className="bg-white border-2 border-gray-100 rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+          <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">
+              3
+            </span>
+            Service Details
+          </h3>
 
           {/* Flight Booking Fields */}
           {selectedService === "flight" && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="tripType">Trip Type *</Label>
+                <Label htmlFor="tripType" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Trip Type <span className="text-red-500">*</span>
+                </Label>
                 <Select name="tripType" required>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue placeholder="Select trip type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -248,37 +311,77 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                 </Select>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="departureCity">Departure City / Airport *</Label>
-                  <Input id="departureCity" name="departureCity" required placeholder="e.g., Lagos (LOS)" />
+                  <Label htmlFor="departureCity" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Departure City / Airport <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="departureCity"
+                    name="departureCity"
+                    required
+                    placeholder="e.g., Lagos (LOS)"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="destinationCity">Destination City / Airport *</Label>
-                  <Input id="destinationCity" name="destinationCity" required placeholder="e.g., Paris (CDG)" />
+                  <Label htmlFor="destinationCity" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Destination City / Airport <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="destinationCity"
+                    name="destinationCity"
+                    required
+                    placeholder="e.g., Paris (CDG)"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="departureDate">Departure Date *</Label>
-                  <Input id="departureDate" name="departureDate" type="date" required />
+                  <Label htmlFor="departureDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Departure Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="departureDate"
+                    name="departureDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="returnDate">Return Date</Label>
-                  <Input id="returnDate" name="returnDate" type="date" />
+                  <Label htmlFor="returnDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Return Date
+                  </Label>
+                  <Input
+                    id="returnDate"
+                    name="returnDate"
+                    type="date"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="airline">Preferred Airline</Label>
-                  <Input id="airline" name="airline" placeholder="e.g., Emirates" />
+                  <Label htmlFor="airline" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Preferred Airline
+                  </Label>
+                  <Input
+                    id="airline"
+                    name="airline"
+                    placeholder="e.g., Emirates"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="cabinClass">Cabin Class</Label>
+                  <Label htmlFor="cabinClass" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Cabin Class
+                  </Label>
                   <Select name="cabinClass" defaultValue="economy">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -291,67 +394,157 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="adults">Number of Adults *</Label>
-                  <Input id="adults" name="adults" type="number" min="1" defaultValue="1" required />
+                  <Label htmlFor="adults" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Adults <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="adults"
+                    name="adults"
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="children">Children (2-11)</Label>
-                  <Input id="children" name="children" type="number" min="0" defaultValue="0" />
+                  <Label htmlFor="children" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Children (2-11)
+                  </Label>
+                  <Input
+                    id="children"
+                    name="children"
+                    type="number"
+                    min="0"
+                    defaultValue="0"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="infants">Infants (0-2)</Label>
-                  <Input id="infants" name="infants" type="number" min="0" defaultValue="0" />
+                  <Label htmlFor="infants" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Infants (0-2)
+                  </Label>
+                  <Input
+                    id="infants"
+                    name="infants"
+                    type="number"
+                    min="0"
+                    defaultValue="0"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="budget">Estimated Budget (₦ / $)</Label>
-                <Input id="budget" name="budget" placeholder="e.g., ₦500,000 or $1,200" />
+                <Label htmlFor="budget" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Estimated Budget (₦ / $)
+                </Label>
+                <Input
+                  id="budget"
+                  name="budget"
+                  placeholder="e.g., ₦500,000 or $1,200"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
             </div>
           )}
 
           {/* Hotel Reservation Fields */}
           {selectedService === "hotel" && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="destinationCity">Destination City *</Label>
-                <Input id="destinationCity" name="destinationCity" required placeholder="e.g., Dubai" />
+                <Label htmlFor="destinationCity" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Destination City <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="destinationCity"
+                  name="destinationCity"
+                  required
+                  placeholder="e.g., Dubai"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="checkinDate">Check-in Date *</Label>
-                  <Input id="checkinDate" name="checkinDate" type="date" required />
+                  <Label htmlFor="checkinDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Check-in Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="checkinDate"
+                    name="checkinDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="checkoutDate">Check-out Date *</Label>
-                  <Input id="checkoutDate" name="checkoutDate" type="date" required />
+                  <Label htmlFor="checkoutDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Check-out Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="checkoutDate"
+                    name="checkoutDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="rooms">Number of Rooms *</Label>
-                  <Input id="rooms" name="rooms" type="number" min="1" defaultValue="1" required />
+                  <Label htmlFor="rooms" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Rooms <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="rooms"
+                    name="rooms"
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="adults">Number of Adults *</Label>
-                  <Input id="adults" name="adults" type="number" min="1" defaultValue="1" required />
+                  <Label htmlFor="adults" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Number of Adults <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="adults"
+                    name="adults"
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="children">Number of Children</Label>
-                  <Input id="children" name="children" type="number" min="0" defaultValue="0" />
+                  <Label htmlFor="children" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Number of Children
+                  </Label>
+                  <Input
+                    id="children"
+                    name="children"
+                    type="number"
+                    min="0"
+                    defaultValue="0"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="hotelCategory">Hotel Category</Label>
+                  <Label htmlFor="hotelCategory" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Hotel Category
+                  </Label>
                   <Select name="hotelCategory" defaultValue="4star">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -363,9 +556,11 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="bedType">Bed Type</Label>
+                  <Label htmlFor="bedType" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Bed Type
+                  </Label>
                   <Select name="bedType" defaultValue="double">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -377,11 +572,13 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="breakfast">Breakfast Included?</Label>
+                  <Label htmlFor="breakfast" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Breakfast Included?
+                  </Label>
                   <Select name="breakfast" defaultValue="yes">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -391,8 +588,15 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="preferredHotel">Preferred Hotel Name</Label>
-                  <Input id="preferredHotel" name="preferredHotel" placeholder="Optional" />
+                  <Label htmlFor="preferredHotel" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Preferred Hotel Name
+                  </Label>
+                  <Input
+                    id="preferredHotel"
+                    name="preferredHotel"
+                    placeholder="Optional"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
             </div>
@@ -400,21 +604,26 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
 
           {/* Visa Assistance Fields */}
           {selectedService === "visa" && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="destinationCountry">Destination Country *</Label>
+                  <Label htmlFor="destinationCountry" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Destination Country <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="destinationCountry"
                     name="destinationCountry"
                     required
                     placeholder="e.g., United Kingdom"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="visaType">Visa Type *</Label>
+                  <Label htmlFor="visaType" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Visa Type <span className="text-red-500">*</span>
+                  </Label>
                   <Select name="visaType" required>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue placeholder="Select visa type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -427,21 +636,39 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="travelDate">Intended Travel Date *</Label>
-                  <Input id="travelDate" name="travelDate" type="date" required />
+                  <Label htmlFor="travelDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Intended Travel Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="travelDate"
+                    name="travelDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="stayDuration">Duration of Stay *</Label>
-                  <Input id="stayDuration" name="stayDuration" required placeholder="e.g., 14 days" />
+                  <Label htmlFor="stayDuration" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Duration of Stay <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="stayDuration"
+                    name="stayDuration"
+                    required
+                    placeholder="e.g., 14 days"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="appliedBefore">Have you applied for this visa before?</Label>
+                <Label htmlFor="appliedBefore" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Have you applied for this visa before?
+                </Label>
                 <Select name="appliedBefore" defaultValue="no">
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -452,14 +679,23 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
               </div>
 
               <div>
-                <Label htmlFor="previousVisas">Previous Visas Held</Label>
-                <Input id="previousVisas" name="previousVisas" placeholder="e.g., USA, UK, Schengen" />
+                <Label htmlFor="previousVisas" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Previous Visas Held
+                </Label>
+                <Input
+                  id="previousVisas"
+                  name="previousVisas"
+                  placeholder="e.g., USA, UK, Schengen"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
 
               <div>
-                <Label htmlFor="visaRefused">Have you been refused a visa before?</Label>
+                <Label htmlFor="visaRefused" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Have you been refused a visa before?
+                </Label>
                 <Select name="visaRefused" defaultValue="no">
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -470,15 +706,25 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
               </div>
 
               <div>
-                <Label htmlFor="refusalReason">If yes, please explain</Label>
-                <Textarea id="refusalReason" name="refusalReason" rows={2} placeholder="Optional" />
+                <Label htmlFor="refusalReason" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  If yes, please explain
+                </Label>
+                <Textarea
+                  id="refusalReason"
+                  name="refusalReason"
+                  rows={2}
+                  placeholder="Optional"
+                  className="text-base border-2 border-gray-200 focus:border-blue-500 resize-none"
+                />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="validPassport">Valid Passport?</Label>
+                  <Label htmlFor="validPassport" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Valid Passport?
+                  </Label>
                   <Select name="validPassport" defaultValue="yes">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -488,9 +734,11 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="bankStatement">Bank Statement Ready?</Label>
+                  <Label htmlFor="bankStatement" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Bank Statement Ready?
+                  </Label>
                   <Select name="bankStatement" defaultValue="yes">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -505,31 +753,69 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
 
           {/* Tour Package Fields */}
           {selectedService === "tour" && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="destination">Destination Country/City *</Label>
-                <Input id="destination" name="destination" required placeholder="e.g., Morocco" />
+                <Label htmlFor="destination" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Destination Country/City <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="destination"
+                  name="destination"
+                  required
+                  placeholder="e.g., Morocco"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <Label htmlFor="travelDates">Travel Dates *</Label>
-                  <Input id="travelDates" name="travelDates" type="date" required />
+                  <Label htmlFor="travelDates" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Travel Dates <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="travelDates"
+                    name="travelDates"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="duration">Duration (Days) *</Label>
-                  <Input id="duration" name="duration" type="number" min="1" required placeholder="e.g., 7" />
+                  <Label htmlFor="duration" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Duration (Days) <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="duration"
+                    name="duration"
+                    type="number"
+                    min="1"
+                    required
+                    placeholder="e.g., 7"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="travelers">Number of Travelers *</Label>
-                  <Input id="travelers" name="travelers" type="number" min="1" defaultValue="1" required />
+                  <Label htmlFor="travelers" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Number of Travelers <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="travelers"
+                    name="travelers"
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="tourType">Type of Tour *</Label>
+                <Label htmlFor="tourType" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Type of Tour <span className="text-red-500">*</span>
+                </Label>
                 <Select name="tourType" required>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue placeholder="Select tour type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -542,15 +828,25 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
                 </Select>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="budgetRange">Budget Range *</Label>
-                  <Input id="budgetRange" name="budgetRange" required placeholder="e.g., ₦500k - ₦1M" />
+                  <Label htmlFor="budgetRange" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Budget Range <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="budgetRange"
+                    name="budgetRange"
+                    required
+                    placeholder="e.g., ₦500k - ₦1M"
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="accommodation">Accommodation Level</Label>
+                  <Label htmlFor="accommodation" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Accommodation Level
+                  </Label>
                   <Select name="accommodation" defaultValue="4star">
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -563,35 +859,35 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
               </div>
 
               <div>
-                <Label className="mb-2 block">Activities of Interest</Label>
-                <div className="space-y-2">
+                <Label className="text-sm font-semibold text-gray-700 mb-2 block">Activities of Interest</Label>
+                <div className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <Checkbox id="city-tours" name="activities" value="city-tours" />
-                    <label htmlFor="city-tours" className="text-sm cursor-pointer">
+                    <label htmlFor="city-tours" className="text-sm cursor-pointer text-gray-700">
                       City Tours
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="safari" name="activities" value="safari" />
-                    <label htmlFor="safari" className="text-sm cursor-pointer">
+                    <label htmlFor="safari" className="text-sm cursor-pointer text-gray-700">
                       Safari
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="beach" name="activities" value="beach" />
-                    <label htmlFor="beach" className="text-sm cursor-pointer">
+                    <label htmlFor="beach" className="text-sm cursor-pointer text-gray-700">
                       Beach
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="cultural" name="activities" value="cultural" />
-                    <label htmlFor="cultural" className="text-sm cursor-pointer">
+                    <label htmlFor="cultural" className="text-sm cursor-pointer text-gray-700">
                       Cultural Tours
                     </label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="shopping" name="activities" value="shopping" />
-                    <label htmlFor="shopping" className="text-sm cursor-pointer">
+                    <label htmlFor="shopping" className="text-sm cursor-pointer text-gray-700">
                       Shopping
                     </label>
                   </div>
@@ -602,36 +898,79 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
 
           {/* Travel Insurance Fields */}
           {selectedService === "insurance" && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <Label htmlFor="destinationCountry">Destination Country *</Label>
-                <Input id="destinationCountry" name="destinationCountry" required placeholder="e.g., USA" />
+                <Label htmlFor="destinationCountry" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Destination Country <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="destinationCountry"
+                  name="destinationCountry"
+                  required
+                  placeholder="e.g., USA"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <Label htmlFor="startDate">Travel Start Date *</Label>
-                  <Input id="startDate" name="startDate" type="date" required />
+                  <Label htmlFor="startDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Travel Start Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="startDate"
+                    name="startDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="endDate">Travel End Date *</Label>
-                  <Input id="endDate" name="endDate" type="date" required />
+                  <Label htmlFor="endDate" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Travel End Date <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="endDate"
+                    name="endDate"
+                    type="date"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="travelers">Number of Travelers *</Label>
-                  <Input id="travelers" name="travelers" type="number" min="1" defaultValue="1" required />
+                  <Label htmlFor="travelers" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    Number of Travelers <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="travelers"
+                    name="travelers"
+                    type="number"
+                    min="1"
+                    defaultValue="1"
+                    required
+                    className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="ages">Age of Travelers</Label>
-                <Input id="ages" name="ages" placeholder="e.g., 35, 32, 8, 5" />
+                <Label htmlFor="ages" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Age of Travelers
+                </Label>
+                <Input
+                  id="ages"
+                  name="ages"
+                  placeholder="e.g., 35, 32, 8, 5"
+                  className="h-12 text-base border-2 border-gray-200 focus:border-blue-500"
+                />
               </div>
 
               <div>
-                <Label htmlFor="coverageType">Coverage Type *</Label>
+                <Label htmlFor="coverageType" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Coverage Type <span className="text-red-500">*</span>
+                </Label>
                 <Select name="coverageType" required>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue placeholder="Select coverage" />
                   </SelectTrigger>
                   <SelectContent>
@@ -643,9 +982,11 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
               </div>
 
               <div>
-                <Label htmlFor="tripPurpose">Trip Purpose</Label>
+                <Label htmlFor="tripPurpose" className="text-sm font-semibold text-gray-700 mb-2 block">
+                  Trip Purpose
+                </Label>
                 <Select name="tripPurpose" defaultValue="tourism">
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 text-base border-2 border-gray-200 focus:border-blue-500">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -661,52 +1002,60 @@ export function ServiceRequestForm({ initialService, onClose }: ServiceRequestFo
         </div>
       )}
 
-      {/* Additional Notes Section */}
-      <div className="border-t pt-6">
-        <h3 className="text-lg font-semibold mb-4">Additional Information</h3>
+      <div className="bg-white border-2 border-gray-100 rounded-xl p-6 md:p-8 shadow-sm">
+        <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">
+            4
+          </span>
+          Additional Information
+        </h3>
         <div>
-          <Label htmlFor="specialRequests">Special Requests / Comments</Label>
+          <Label htmlFor="specialRequests" className="text-sm font-semibold text-gray-700 mb-2 block">
+            Special Requests or Notes
+          </Label>
           <Textarea
             id="specialRequests"
             name="specialRequests"
             rows={4}
-            placeholder="Any special requirements or additional information..."
+            placeholder="Any additional information, special requirements, or questions you'd like to share..."
+            className="text-base border-2 border-gray-200 focus:border-blue-500 resize-none"
           />
         </div>
       </div>
 
-      {/* Consent Section */}
-      <div className="border-t pt-6">
-        <div className="flex items-start space-x-2">
-          <Checkbox id="consent" name="consent" required />
-          <label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
-            I confirm that the information provided is accurate and I consent to Feto Travels contacting me regarding my
-            request *
-          </label>
+      <div className="bg-white border-2 border-gray-100 rounded-xl p-6 md:p-8 shadow-sm">
+        <SecurityQuestion onValidate={setIsSecurityValid} reset={resetSecurity} />
+      </div>
+
+      <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-lg border border-blue-100">
+        <Checkbox id="consent" name="consent" required className="mt-1" />
+        <label htmlFor="consent" className="text-sm text-gray-700 leading-relaxed cursor-pointer">
+          I agree to Feto Travels' terms and conditions and consent to being contacted via my provided contact details.
+        </label>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+          <p className="text-red-800 text-sm font-medium">{error}</p>
         </div>
-      </div>
+      )}
 
-      <SecurityQuestion onValidate={setIsSecurityValid} reset={resetSecurity} />
-
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-
-      <div className="flex gap-4">
-        <Button type="submit" className="flex-1" disabled={loading || !isSecurityValid}>
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Submitting...
-            </>
-          ) : (
-            "Submit Request"
-          )}
-        </Button>
-        {onClose && (
-          <Button type="button" variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
+      <Button
+        type="submit"
+        disabled={loading || !isSecurityValid}
+        className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {loading ? (
+          <>
+            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+            Submitting Your Request...
+          </>
+        ) : (
+          "Submit Service Request"
         )}
-      </div>
+      </Button>
+
+      <p className="text-center text-sm text-gray-500">We typically respond within 2-4 hours during business hours</p>
     </form>
   )
 }
