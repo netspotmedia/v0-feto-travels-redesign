@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/home/hero-section"
+import { AirlineCarousel } from "@/components/home/airline-carousel"
 import { WhyChooseUs } from "@/components/home/why-choose-us"
 import { FeaturedDestinations } from "@/components/home/featured-destinations"
 import { TravelExperiences } from "@/components/home/travel-experiences"
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Header />
       <main>
         <HeroSection />
+        <AirlineCarousel />
         <WhyChooseUs />
         <FeaturedDestinations />
         <TravelExperiences />
