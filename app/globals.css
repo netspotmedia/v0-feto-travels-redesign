@@ -4,6 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --font-geist-sans: "Geist", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+
   --background: oklch(0.98 0.005 240);
   --foreground: oklch(0.2 0.02 240);
   --card: oklch(1 0 0);
@@ -28,7 +31,7 @@
   --chart-3: oklch(0.6 0.12 200);
   --chart-4: oklch(0.7 0.1 180);
   --chart-5: oklch(0.55 0.08 260);
-  --radius: 8px;
+  --radius: 12px;
   --sidebar: oklch(0.98 0.005 240);
   --sidebar-foreground: oklch(0.2 0.02 240);
   --sidebar-primary: oklch(0.25 0.04 240);
@@ -75,7 +78,8 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -120,5 +124,24 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Added premium glassmorphism and smooth animations */
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border border-white/20 dark:border-white/10;
+  }
+
+  .glass-light {
+    @apply backdrop-blur-sm bg-white/40 dark:bg-slate-900/40 border border-white/10;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300;
   }
 }

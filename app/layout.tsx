@@ -6,21 +6,17 @@ import "./globals.css"
 import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Inter, Playfair_Display as V0_Font_Playfair_Display } from 'next/font/google'
-import { Playfair_Display, Playfair_Display as V0_Font_Playfair_Display } from 'next/font/google'
+import { Geist, Geist_Mono } from "next/font/google"
 
-// Initialize fonts
-const _playfairDisplay = V0_Font_Playfair_Display({ subsets: ['latin'], weight: ["400","500","600","700","800","900"] })
-
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist-sans",
   display: "swap",
 })
 
-const playfair = Playfair_Display({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-geist-mono",
   display: "swap",
 })
 
@@ -46,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`font-sans ${geist.variable} ${geistMono.variable} antialiased`}>
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
         <Footer />
