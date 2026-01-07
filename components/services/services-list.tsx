@@ -4,7 +4,18 @@ import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Plane, Hotel, FileText, Package, Shield, MapPin, Calendar, CreditCard } from "lucide-react"
+import {
+  Plane,
+  Hotel,
+  FileText,
+  Package,
+  Shield,
+  MapPin,
+  Calendar,
+  CreditCard,
+  GraduationCap,
+  Briefcase,
+} from "lucide-react"
 import { ServiceRequestForm } from "@/components/service-request-form"
 
 const services = [
@@ -87,6 +98,46 @@ const services = [
       "Flexible payment options making dream vacations more accessible. Spread costs over time with our convenient installment plans.",
     features: ["Interest-free options", "Flexible terms", "Secure payments", "No hidden fees"],
     image: "/payment.png",
+  },
+  {
+    icon: GraduationCap,
+    title: "Study Abroad",
+    serviceType: "study-abroad",
+    buttonText: "Request Info",
+    description:
+      "Comprehensive support for students pursuing education internationally. From university selection to visa processing and accommodation arrangements.",
+    features: ["University selection assistance", "Application support", "Visa guidance", "Accommodation help"],
+    image: "/study-abroad.png",
+  },
+  {
+    icon: Briefcase,
+    title: "Work Abroad",
+    serviceType: "work-abroad",
+    buttonText: "Request Info",
+    description:
+      "Professional assistance for finding and securing employment opportunities abroad. We guide you through job search, visa requirements, and relocation.",
+    features: ["Job search assistance", "Work visa support", "Relocation services", "Contract review"],
+    image: "/work-abroad.jpg",
+  },
+  {
+    icon: Briefcase,
+    title: "Job Procurement Abroad",
+    serviceType: "job-procurement",
+    buttonText: "Request Info",
+    description:
+      "Direct placement services connecting you with global employers. Our network spans multiple countries and industries for diverse opportunities.",
+    features: ["Direct job placement", "Employer connections", "Salary negotiation", "Pre-departure orientation"],
+    image: "/job-procurement.jpg",
+  },
+  {
+    icon: FileText,
+    title: "Visa Appointment Assistance",
+    serviceType: "visa-appointment",
+    buttonText: "Request Info",
+    description:
+      "Dedicated support for scheduling and preparing for visa appointments. Expert coaching on interview preparation and documentation verification.",
+    features: ["Appointment scheduling", "Interview coaching", "Document verification", "Follow-up support"],
+    image: "/visa-appointment.jpg",
   },
 ]
 

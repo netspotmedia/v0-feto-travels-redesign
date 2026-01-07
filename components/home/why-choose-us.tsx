@@ -31,7 +31,7 @@ export function WhyChooseUs() {
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
             WHY TRAVEL <span className="italic text-accent">With Us?</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty font-medium">
             We're committed to making your travel dreams a reality with personalized service and unmatched expertise
           </p>
         </div>

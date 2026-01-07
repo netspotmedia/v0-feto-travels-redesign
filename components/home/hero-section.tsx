@@ -73,7 +73,7 @@ export function HeroSection() {
         <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 text-balance">
           {slides[current].title}
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty">
+        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty font-medium">
           {slides[current].subtitle}
         </p>
 

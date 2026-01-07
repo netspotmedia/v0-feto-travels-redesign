@@ -10,6 +10,10 @@ export async function POST(request: Request) {
       visa: "Visa Assistance",
       tour: "Tour Packages",
       insurance: "Travel Insurance",
+      "study-abroad": "Study Abroad",
+      "work-abroad": "Work Abroad",
+      "job-procurement": "Job Procurement Abroad",
+      "visa-appointment": "Visa Appointment Assistance",
     }
 
     let serviceDetails = ""
@@ -104,6 +108,74 @@ Ages of Travelers: ${data.ages || "Not specified"}
 COVERAGE
 Coverage Type: ${data.coverageType || "Not specified"}
 Trip Purpose: ${data.tripPurpose || "Tourism"}
+      `.trim()
+    } else if (data.service === "study-abroad") {
+      serviceDetails = `
+STUDY ABROAD DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Destination Country: ${data.destinationCountry || "Not specified"}
+Study Level: ${data.studyLevel || "Not specified"}
+Field of Study: ${data.fieldOfStudy || "Not specified"}
+Intended Start Date: ${data.intendedStartDate || "Not specified"}
+
+QUALIFICATIONS
+English Proficiency: ${data.englishProficiency || "Not specified"}
+Academic Qualification: ${data.academicQualification || "Not specified"}
+
+PREFERENCES
+Budget: ${data.budget || "Not specified"}
+Other Preferred Countries: ${data.preferredCountries || "None"}
+      `.trim()
+    } else if (data.service === "work-abroad") {
+      serviceDetails = `
+WORK ABROAD DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Job Title: ${data.jobTitle || "Not specified"}
+Industry: ${data.industry || "Not specified"}
+Destination Country: ${data.destinationCountry || "Not specified"}
+Years of Experience: ${data.yearsOfExperience || "Not specified"}
+
+QUALIFICATIONS & SKILLS
+Key Skills: ${data.skillSet || "Not specified"}
+
+REQUIREMENTS
+Visa Type: ${data.visaType || "Not specified"}
+Expected Start Date: ${data.startDate || "Not specified"}
+Salary Expectation: ${data.salaryExpectation || "Not specified"}
+      `.trim()
+    } else if (data.service === "job-procurement") {
+      serviceDetails = `
+JOB PROCUREMENT ABROAD DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Desired Position: ${data.jobTitle || "Not specified"}
+Industry/Sector: ${data.industry || "Not specified"}
+Preferred Countries: ${data.preferredCountries || "Not specified"}
+
+PROFILE
+Years of Experience: ${data.yearsOfExperience || "Not specified"}
+Qualifications: ${data.qualifications || "Not specified"}
+Languages: ${data.languages || "Not specified"}
+
+EXPECTATIONS
+Salary Range: ${data.salaryRange || "Not specified"}
+Available Start Date: ${data.startDate || "Not specified"}
+      `.trim()
+    } else if (data.service === "visa-appointment") {
+      serviceDetails = `
+VISA APPOINTMENT ASSISTANCE DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Visa Type: ${data.visaType || "Not specified"}
+Destination Country: ${data.destinationCountry || "Not specified"}
+Embassy/Consulate: ${data.embassy || "Not specified"}
+
+APPOINTMENT
+Preferred Date: ${data.preferredAppointmentDate || "Not specified"}
+Document Status: ${data.documentStatus || "Not specified"}
+Purpose: ${data.appointmentReason || "Not specified"}
       `.trim()
     }
 

@@ -1,12 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import { Playfair_Display } from "next/font/google"
+
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { Inter, Playfair_Display as V0_Font_Playfair_Display } from 'next/font/google'
+import { Playfair_Display, Playfair_Display as V0_Font_Playfair_Display } from 'next/font/google'
+
+// Initialize fonts
+const _playfairDisplay = V0_Font_Playfair_Display({ subsets: ['latin'], weight: ["400","500","600","700","800","900"] })
 
 const inter = Inter({
   subsets: ["latin"],
