@@ -55,18 +55,24 @@ export default function AdminRegisterPage() {
         {
           id: authData.user.id,
           email: authData.user.email,
+          role: "editor",
           created_at: new Date().toISOString(),
         },
       ])
 
-      if (adminError) throw adminError
+      if (adminError) {
+        console.error("[v0] Admin record creation failed:", adminError)
+        throw adminError
+      }
 
       setSuccess("Registration successful! Check your email to confirm, then you can login.")
       setTimeout(() => {
         router.push("/admin/login")
       }, 2000)
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred during registration")
+      const errorMessage = error instanceof Error ? error.message : "An error occurred during registration"
+      console.error("[v0] Registration error:", errorMessage)
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
