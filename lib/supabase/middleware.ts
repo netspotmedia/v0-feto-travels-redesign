@@ -29,7 +29,10 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (request.nextUrl.pathname.startsWith("/admin") && !user) {
+  const publicAdminRoutes = ["/admin/login", "/admin/register", "/admin/forgot-password"]
+  const isPublicRoute = publicAdminRoutes.includes(request.nextUrl.pathname)
+
+  if (request.nextUrl.pathname.startsWith("/admin") && !isPublicRoute && !user) {
     const url = request.nextUrl.clone()
     url.pathname = "/admin/login"
     return NextResponse.redirect(url)

@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -37,13 +37,19 @@ export default function AdminLoginPage() {
       } = await supabase.auth.getUser()
       if (!user) throw new Error("Unable to verify user")
 
-      const { data: adminUser, error: adminError } = await supabase
-        .from("admin_users")
-        .select("*")
-        .eq("id", user.id)
-        .single()
+      try {
+        const { data: adminUser, error: adminError } = await supabase
+          .from("admin_users")
+          .select("*")
+          .eq("id", user.id)
+          .single()
 
-      if (adminError || !adminUser) {
+        if (adminError || !adminUser) {
+          await supabase.auth.signOut()
+          throw new Error("You do not have admin access")
+        }
+      } catch (queryError) {
+        // If query fails due to RLS or other issues, sign out and show error
         await supabase.auth.signOut()
         throw new Error("You do not have admin access")
       }
@@ -97,6 +103,19 @@ export default function AdminLoginPage() {
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
+              <div className="text-center space-y-2">
+                <p className="text-sm text-slate-400">
+                  Don't have an account?{" "}
+                  <Link href="/admin/register" className="text-blue-400 hover:text-blue-300">
+                    Register here
+                  </Link>
+                </p>
+                <p className="text-sm text-slate-400">
+                  <Link href="/admin/forgot-password" className="text-blue-400 hover:text-blue-300">
+                    Forgot your password?
+                  </Link>
+                </p>
+              </div>
             </form>
           </CardContent>
         </Card>
