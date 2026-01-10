@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { createTour, publishTour, unpublishTour, deleteTour } from "@/app/actions/tours"
 
 interface Tour {
   id: string
@@ -15,7 +16,7 @@ interface Tour {
   destination: string
   description: string
   price: number
-  featured: boolean
+  status: string
 }
 
 export default function ToursManagerPage() {
@@ -26,10 +27,8 @@ export default function ToursManagerPage() {
     destination: "",
     description: "",
     price: "",
-    image_url: "",
-    duration_days: "",
-    featured: false,
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     fetchTours()
@@ -50,37 +49,42 @@ export default function ToursManagerPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      const response = await fetch("/api/admin/tours", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-      if (!response.ok) throw new Error("Failed to create tour")
-      setFormData({
-        title: "",
-        destination: "",
-        description: "",
-        price: "",
-        image_url: "",
-        duration_days: "",
-        featured: false,
-      })
+    setIsSubmitting(true)
+
+    const result = await createTour({
+      title: formData.title,
+      destination: formData.destination,
+      description: formData.description,
+      price: Number.parseFloat(formData.price),
+    })
+
+    setIsSubmitting(false)
+
+    if (result.success) {
+      setFormData({ title: "", destination: "", description: "", price: "" })
       await fetchTours()
-    } catch (error) {
-      console.error("Error creating tour:", error)
+    } else {
+      alert(`Error: ${result.error}`)
     }
   }
 
-  const handleDelete = async (id: string) => {
+  const handlePublish = async (tourId: string) => {
+    const result = await publishTour(tourId)
+    if (result.success) await fetchTours()
+    else alert(`Error: ${result.error}`)
+  }
+
+  const handleUnpublish = async (tourId: string) => {
+    const result = await unpublishTour(tourId)
+    if (result.success) await fetchTours()
+    else alert(`Error: ${result.error}`)
+  }
+
+  const handleDelete = async (tourId: string) => {
     if (!confirm("Are you sure?")) return
-    try {
-      const response = await fetch(`/api/admin/tours?id=${id}`, { method: "DELETE" })
-      if (!response.ok) throw new Error("Failed to delete tour")
-      await fetchTours()
-    } catch (error) {
-      console.error("Error deleting tour:", error)
-    }
+    const result = await deleteTour(tourId)
+    if (result.success) await fetchTours()
+    else alert(`Error: ${result.error}`)
   }
 
   return (
@@ -151,20 +155,8 @@ export default function ToursManagerPage() {
                     required
                   />
                 </div>
-                <div className="flex items-center">
-                  <input
-                    id="featured"
-                    type="checkbox"
-                    checked={formData.featured}
-                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                    className="rounded"
-                  />
-                  <Label htmlFor="featured" className="text-slate-300 ml-2 cursor-pointer">
-                    Featured
-                  </Label>
-                </div>
-                <Button type="submit" className="w-full">
-                  Create Tour
+                <Button type="submit" disabled={isSubmitting} className="w-full">
+                  {isSubmitting ? "Creating..." : "Create Tour"}
                 </Button>
               </form>
             </CardContent>
@@ -182,20 +174,42 @@ export default function ToursManagerPage() {
                 ) : tours.length > 0 ? (
                   <div className="space-y-4">
                     {tours.map((tour) => (
-                      <div key={tour.id} className="bg-slate-700 p-4 rounded-lg flex justify-between items-start">
-                        <div>
-                          <h3 className="text-white font-semibold">{tour.title}</h3>
-                          <p className="text-slate-300 text-sm">{tour.destination}</p>
-                          <p className="text-accent font-semibold">${tour.price.toLocaleString()}</p>
-                          {tour.featured && (
-                            <span className="text-xs bg-accent text-white px-2 py-1 rounded mt-2 inline-block">
-                              Featured
-                            </span>
-                          )}
+                      <div key={tour.id} className="bg-slate-700 p-4 rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="text-white font-semibold">{tour.title}</h3>
+                            <p className="text-slate-300 text-sm">{tour.destination}</p>
+                            <p className="text-accent font-semibold">${tour.price.toLocaleString()}</p>
+                          </div>
+                          <span
+                            className={`text-xs px-2 py-1 rounded ${tour.status === "published" ? "bg-green-600" : "bg-yellow-600"} text-white`}
+                          >
+                            {tour.status}
+                          </span>
                         </div>
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(tour.id)}>
-                          Delete
-                        </Button>
+                        <div className="flex gap-2">
+                          {tour.status === "draft" ? (
+                            <Button
+                              size="sm"
+                              onClick={() => handlePublish(tour.id)}
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              Publish
+                            </Button>
+                          ) : (
+                            <Button
+                              size="sm"
+                              onClick={() => handleUnpublish(tour.id)}
+                              variant="outline"
+                              className="text-yellow-400"
+                            >
+                              Unpublish
+                            </Button>
+                          )}
+                          <Button size="sm" variant="destructive" onClick={() => handleDelete(tour.id)}>
+                            Delete
+                          </Button>
+                        </div>
                       </div>
                     ))}
                   </div>

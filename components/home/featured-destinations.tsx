@@ -1,10 +1,7 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ArrowRight } from "lucide-react"
-import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { createClient } from "@/lib/supabase/server"
 
 interface Tour {
   id: string
@@ -15,29 +12,16 @@ interface Tour {
   image_url: string
 }
 
-export function FeaturedDestinations() {
-  const [tours, setTours] = useState<Tour[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+export async function FeaturedDestinations() {
+  const supabase = await createClient()
 
-  useEffect(() => {
-    async function fetchTours() {
-      try {
-        const supabase = createClient()
-        const { data, error } = await supabase.from("tours").select("*").eq("featured", true).limit(4)
+  const { data: tours, error } = await supabase
+    .from("tours")
+    .select("id, title, destination, description, price, image_url")
+    .eq("status", "published")
+    .limit(4)
 
-        if (error) throw error
-        setTours(data || [])
-      } catch (error) {
-        console.error("Error fetching tours:", error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchTours()
-  }, [])
-
-  if (isLoading) {
+  if (error || !tours) {
     return (
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
@@ -46,10 +30,8 @@ export function FeaturedDestinations() {
               FEATURED DESTINATIONS
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-80 bg-slate-200 rounded-lg animate-pulse" />
-            ))}
+          <div className="text-center py-12">
+            <p className="text-lg text-secondary-foreground/60">No featured tours available yet</p>
           </div>
         </div>
       </section>
@@ -68,7 +50,7 @@ export function FeaturedDestinations() {
           </p>
         </div>
 
-        {tours.length > 0 ? (
+        {tours && tours.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {tours.map((tour) => (
               <Card
