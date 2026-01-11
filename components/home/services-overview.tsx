@@ -15,11 +15,15 @@ const iconMap: Record<string, any> = {
 export async function ServicesOverview() {
   const supabase = await createClient()
 
-  const { data: services = [] } = await supabase
+  // Services are always displayed
+  const { data: services = [], error } = await supabase
     .from("services")
-    .select("*")
-    .eq("status", "published")
+    .select("id, name, description, icon, display_order")
     .order("display_order", { ascending: true })
+
+  if (error) {
+    console.error("Services error:", error)
+  }
 
   return (
     <section className="py-20 bg-secondary">
@@ -35,7 +39,7 @@ export async function ServicesOverview() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => {
-            const IconComponent = iconMap[service.icon_key] || Package
+            const IconComponent = iconMap[service.icon] || Package
             return (
               <div key={service.id} className="flex gap-4 group">
                 <div className="flex-shrink-0">
@@ -44,7 +48,7 @@ export async function ServicesOverview() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-secondary-foreground">{service.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-secondary-foreground">{service.name}</h3>
                   <p className="text-secondary-foreground/70 text-pretty">{service.description}</p>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server"
 interface Tour {
   id: string
   title: string
-  destination: string
+  destination_id: string
   description: string
   price: number
   image_url: string
@@ -17,11 +17,12 @@ export async function FeaturedDestinations() {
 
   const { data: tours, error } = await supabase
     .from("tours")
-    .select("id, title, destination, description, price, image_url")
+    .select("id, title, destination_id, description, price, image_url")
     .eq("status", "published")
     .limit(4)
 
-  if (error || !tours) {
+  if (error) {
+    console.error("Featured destinations error:", error)
     return (
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
@@ -31,12 +32,14 @@ export async function FeaturedDestinations() {
             </h2>
           </div>
           <div className="text-center py-12">
-            <p className="text-lg text-secondary-foreground/60">No featured tours available yet</p>
+            <p className="text-lg text-secondary-foreground/60">Featured tours are temporarily unavailable</p>
           </div>
         </div>
       </section>
     )
   }
+
+  const safeTours = tours || []
 
   return (
     <section className="py-20 bg-secondary">
@@ -50,9 +53,9 @@ export async function FeaturedDestinations() {
           </p>
         </div>
 
-        {tours && tours.length > 0 ? (
+        {safeTours.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {tours.map((tour) => (
+            {safeTours.map((tour) => (
               <Card
                 key={tour.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -67,7 +70,7 @@ export async function FeaturedDestinations() {
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white flex flex-col justify-between h-full">
                     <div />
                     <div>
-                      <p className="text-sm text-accent font-semibold mb-2">{tour.destination}</p>
+                      <p className="text-sm text-accent font-semibold mb-2">Destination</p>
                       <h3 className="text-2xl font-serif font-bold mb-2">{tour.title}</h3>
                       <p className="text-sm text-white/90 mb-4 text-pretty line-clamp-2">{tour.description}</p>
                       <div className="flex justify-between items-center">
