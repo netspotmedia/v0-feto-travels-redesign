@@ -1,39 +1,26 @@
-import { Plane, Hotel, FileText, Package, Shield, Globe } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
+import { Plane, Hotel, FileText, Package, Shield, Globe, BookOpen, Users } from "lucide-react"
 
-const services = [
-  {
-    icon: Plane,
-    title: "Flight Bookings",
-    description: "Best rates on domestic and international flights",
-  },
-  {
-    icon: Hotel,
-    title: "Hotel Reservations",
-    description: "Handpicked accommodations for every budget",
-  },
-  {
-    icon: FileText,
-    title: "Visa Assistance",
-    description: "Hassle-free visa processing and documentation",
-  },
-  {
-    icon: Package,
-    title: "Travel Packages",
-    description: "Curated experiences tailored to your preferences",
-  },
-  {
-    icon: Shield,
-    title: "Travel Insurance",
-    description: "Comprehensive coverage for peace of mind",
-  },
-  {
-    icon: Globe,
-    title: "Tour Guides",
-    description: "Expert local guides for authentic experiences",
-  },
-]
+const iconMap: Record<string, any> = {
+  flights: Plane,
+  hotels: Hotel,
+  visa: FileText,
+  tours: Package,
+  insurance: Shield,
+  guides: Globe,
+  study: BookOpen,
+  work: Users,
+}
 
-export function ServicesOverview() {
+export async function ServicesOverview() {
+  const supabase = await createClient()
+
+  const { data: services = [] } = await supabase
+    .from("services")
+    .select("*")
+    .eq("status", "published")
+    .order("display_order", { ascending: true })
+
   return (
     <section className="py-20 bg-secondary">
       <div className="container mx-auto px-4">
@@ -47,19 +34,22 @@ export function ServicesOverview() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="flex gap-4 group">
-              <div className="flex-shrink-0">
-                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                  <service.icon className="w-7 h-7 text-accent" />
+          {services.map((service) => {
+            const IconComponent = iconMap[service.icon_key] || Package
+            return (
+              <div key={service.id} className="flex gap-4 group">
+                <div className="flex-shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                    <IconComponent className="w-7 h-7 text-accent" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-secondary-foreground">{service.title}</h3>
+                  <p className="text-secondary-foreground/70 text-pretty">{service.description}</p>
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-secondary-foreground">{service.title}</h3>
-                <p className="text-secondary-foreground/70 text-pretty">{service.description}</p>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { verifyAdminAccess } from "@/app/actions/admin"
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("")
@@ -31,27 +32,11 @@ export default function AdminLoginPage() {
 
       if (signInError) throw signInError
 
-      // Verify user is an admin
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) throw new Error("Unable to verify user")
+      const adminUser = await verifyAdminAccess()
 
-      try {
-        const { data: adminUser, error: adminError } = await supabase
-          .from("admin_users")
-          .select("*")
-          .eq("id", user.id)
-          .single()
-
-        if (adminError || !adminUser) {
-          await supabase.auth.signOut()
-          throw new Error("You do not have admin access")
-        }
-      } catch (queryError) {
-        // If query fails due to RLS or other issues, sign out and show error
+      if (!adminUser) {
         await supabase.auth.signOut()
-        throw new Error("You do not have admin access")
+        throw new Error("You do not have admin access. Please contact an administrator.")
       }
 
       router.push("/admin/dashboard")

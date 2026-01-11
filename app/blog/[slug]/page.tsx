@@ -4,16 +4,29 @@ import Link from "next/link"
 import { Calendar, User, Clock, ArrowLeft, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { getBlogPost, getRelatedPosts } from "@/lib/blog-data"
+import { createClient } from "@/lib/supabase/server"
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug)
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const supabase = await createClient()
+
+  const { data: post } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", params.slug)
+    .eq("status", "published")
+    .single()
 
   if (!post) {
     notFound()
   }
 
-  const relatedPosts = getRelatedPosts(post.id)
+  const { data: relatedPosts = [] } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("status", "published")
+    .eq("category", post.category)
+    .neq("id", post.id)
+    .limit(3)
 
   return (
     <main className="min-h-screen pt-24 pb-20">
@@ -43,11 +56,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4" />
-            <span>{post.date}</span>
+            <span>{new Date(post.created_at).toLocaleDateString()}</span>
           </div>
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            <span>{post.readTime}</span>
+            <span>{post.read_time || "5 min"} read</span>
           </div>
           <Button variant="ghost" size="sm" className="ml-auto">
             <Share2 className="w-4 h-4 mr-2" />
@@ -57,74 +70,87 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         {/* Featured Image */}
         <div className="relative h-96 rounded-lg overflow-hidden mb-12">
-          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" priority />
+          <Image src={post.image_url || "/placeholder.svg"} alt={post.title} fill className="object-cover" priority />
         </div>
 
         {/* Content */}
         <div className="prose prose-lg max-w-none">
-          {post.content.map((block, index) => {
-            switch (block.type) {
-              case "paragraph":
-                return (
-                  <p key={index} className="text-muted-foreground leading-relaxed mb-6">
-                    {block.text}
-                  </p>
-                )
-              case "heading":
-                return (
-                  <h2 key={index} className="text-2xl font-serif font-bold mt-12 mb-4">
-                    {block.text}
-                  </h2>
-                )
-              case "image":
-                return (
-                  <div key={index} className="relative h-96 rounded-lg overflow-hidden my-8">
-                    <Image src={block.src || "/placeholder.svg"} alt={block.alt || ""} fill className="object-cover" />
-                  </div>
-                )
-              case "quote":
-                return (
-                  <blockquote key={index} className="border-l-4 border-accent pl-6 py-4 my-8 italic text-lg">
-                    {block.text}
-                  </blockquote>
-                )
-              default:
-                return null
-            }
-          })}
+          {Array.isArray(post.content) ? (
+            post.content.map((block: any, index: number) => {
+              switch (block.type) {
+                case "paragraph":
+                  return (
+                    <p key={index} className="text-muted-foreground leading-relaxed mb-6">
+                      {block.text}
+                    </p>
+                  )
+                case "heading":
+                  return (
+                    <h2 key={index} className="text-2xl font-serif font-bold mt-12 mb-4">
+                      {block.text}
+                    </h2>
+                  )
+                case "image":
+                  return (
+                    <div key={index} className="relative h-96 rounded-lg overflow-hidden my-8">
+                      <Image
+                        src={block.src || "/placeholder.svg"}
+                        alt={block.alt || ""}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )
+                case "quote":
+                  return (
+                    <blockquote key={index} className="border-l-4 border-accent pl-6 py-4 my-8 italic text-lg">
+                      {block.text}
+                    </blockquote>
+                  )
+                default:
+                  return null
+              }
+            })
+          ) : (
+            <p className="text-muted-foreground">{post.content}</p>
+          )}
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t">
-          {post.tags.map((tag, index) => (
-            <span key={index} className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-16">
-          <h3 className="text-2xl font-serif font-bold mb-8">Related Articles</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {relatedPosts.map((relatedPost) => (
-              <Link key={relatedPost.id} href={`/blog/${relatedPost.id}`}>
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="relative h-48">
-                    <Image
-                      src={relatedPost.image || "/placeholder.svg"}
-                      alt={relatedPost.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h4 className="font-semibold line-clamp-2">{relatedPost.title}</h4>
-                  </div>
-                </Card>
-              </Link>
+        {Array.isArray(post.tags) && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t">
+            {post.tags.map((tag: string, index: number) => (
+              <span key={index} className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">
+                {tag}
+              </span>
             ))}
           </div>
-        </div>
+        )}
+
+        {relatedPosts.length > 0 && (
+          <div className="mt-16">
+            <h3 className="text-2xl font-serif font-bold mb-8">Related Articles</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost: any) => (
+                <Link key={relatedPost.id} href={`/blog/${relatedPost.slug || relatedPost.id}`}>
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative h-48">
+                      <Image
+                        src={relatedPost.image_url || "/placeholder.svg"}
+                        alt={relatedPost.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h4 className="font-semibold line-clamp-2">{relatedPost.title}</h4>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* CTA */}
         <Card className="mt-16 p-8 bg-accent/5 border-accent/20 text-center">

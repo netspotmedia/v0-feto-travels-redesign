@@ -2,9 +2,17 @@ import { Header } from "@/components/header"
 import { Card } from "@/components/ui/card"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { blogPosts } from "@/lib/blog-data"
+import { createClient } from "@/lib/supabase/server"
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const supabase = await createClient()
+
+  const { data: blogPosts = [] } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("status", "published")
+    .order("created_at", { ascending: false })
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -33,11 +41,11 @@ export default function BlogPage() {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogPosts.map((post) => (
-                  <Link key={post.id} href={`/blog/${post.id}`}>
+                  <Link key={post.id} href={`/blog/${post.slug || post.id}`}>
                     <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all h-full cursor-pointer">
                       <div className="relative h-56 overflow-hidden">
                         <img
-                          src={post.image || "/placeholder.svg"}
+                          src={post.image_url || "/placeholder.svg"}
                           alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
@@ -49,11 +57,11 @@ export default function BlogPage() {
                         <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
                           <div className="flex items-center gap-1">
                             <Calendar size={14} />
-                            <span>{post.date}</span>
+                            <span>{new Date(post.created_at).toLocaleDateString()}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <Clock size={14} />
-                            <span>{post.readTime}</span>
+                            <span>{post.read_time || "5 min"} read</span>
                           </div>
                         </div>
                         <h3 className="text-xl font-serif font-bold mb-3 text-foreground group-hover:text-accent transition-colors">

@@ -1,39 +1,32 @@
 import { Card } from "@/components/ui/card"
+import { createClient } from "@/lib/supabase/server"
 
-const regions = [
-  {
-    name: "Europe",
-    description: "Historic cities, stunning architecture, and diverse cultures",
-    destinations: ["Paris", "Rome", "Barcelona", "Amsterdam", "Prague"],
-    image: "/rome.jpg",
-  },
-  {
-    name: "Asia",
-    description: "Ancient traditions, modern marvels, and exotic landscapes",
-    destinations: ["Tokyo", "Bangkok", "Singapore", "Bali", "Dubai"],
-    image: "/asia.jpg",
-  },
-  {
-    name: "Africa",
-    description: "Wildlife safaris, pristine beaches, and rich heritage",
-    destinations: ["Cape Town", "Marrakech", "Zanzibar", "Cairo", "Nairobi"],
-    image: "/africa.jpg",
-  },
-  {
-    name: "Americas",
-    description: "Natural wonders, vibrant cities, and diverse experiences",
-    destinations: ["New York", "Rio de Janeiro", "Cancun", "Vancouver", "Buenos Aires"],
-    image: "/americ.jpg",
-  },
-  {
-    name: "Oceania",
-    description: "Pristine beaches, unique wildlife, and adventure",
-    destinations: ["Sydney", "Auckland", "Fiji", "Bora Bora", "Melbourne"],
-    image: "/oceanic.jpg",
-  },
-]
+export async function DestinationsByRegion() {
+  const supabase = await createClient()
 
-export function DestinationsByRegion() {
+  const { data: destinations = [] } = await supabase
+    .from("destinations")
+    .select("*")
+    .eq("status", "published")
+    .order("display_order", { ascending: true })
+
+  // Group destinations by region
+  const regionMap: Record<string, any> = {}
+  destinations.forEach((dest) => {
+    const region = dest.region || "Other"
+    if (!regionMap[region]) {
+      regionMap[region] = {
+        name: region,
+        image: dest.image_url,
+        description: dest.description,
+        destinations: [],
+      }
+    }
+    regionMap[region].destinations.push(dest.name)
+  })
+
+  const regions = Object.values(regionMap)
+
   return (
     <section className="py-20 bg-secondary">
       <div className="container mx-auto px-4">
