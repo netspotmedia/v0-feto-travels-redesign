@@ -32,10 +32,32 @@ export async function updateSession(request: NextRequest) {
   const publicAdminRoutes = ["/admin/login", "/admin/register", "/admin/forgot-password"]
   const isPublicRoute = publicAdminRoutes.includes(request.nextUrl.pathname)
 
-  if (request.nextUrl.pathname.startsWith("/admin") && !isPublicRoute && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/admin/login"
-    return NextResponse.redirect(url)
+  // Protect /admin routes
+  if (request.nextUrl.pathname.startsWith("/admin") && !isPublicRoute) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = "/admin/login"
+      return NextResponse.redirect(url)
+    }
+
+    try {
+      const { data: adminUser, error } = await supabase
+        .from("admin_users")
+        .select("id, status")
+        .eq("id", user.id)
+        .eq("status", "approved")
+        .single()
+
+      if (error || !adminUser) {
+        const url = request.nextUrl.clone()
+        url.pathname = "/admin/login"
+        return NextResponse.redirect(url)
+      }
+    } catch (err) {
+      const url = request.nextUrl.clone()
+      url.pathname = "/admin/login"
+      return NextResponse.redirect(url)
+    }
   }
 
   return supabaseResponse
